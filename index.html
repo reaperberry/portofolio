@@ -269,22 +269,79 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">NightRacer</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/T_title.png" alt="..." />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">dit is mijn Nightracer project, dit project is een local multiplayer racing game</p>
-                                    <a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" rel="noopener noreferrer" class="btn btn-success">Play cosmic cat</a>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
+                                   <!-- Portfolio Modal - Title-->
+<h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">NightRacer</h2>
+<!-- Icon Divider-->
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+<!-- Portfolio Modal - Image-->
+<img class="img-fluid rounded mb-5" src="assets/img/portfolio/T_title.png" alt="NightRacer Title" />
+<!-- Portfolio Modal - Text-->
+<p class="mb-4">Dit is mijn Nightracer project, dit project is een local multiplayer racing game.</p>
+
+<!-- Photo Reel Container -->
+<div class="position-relative">
+    <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
+    <div class="photo-reel-container d-flex" id="photoReel">
+        <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
+        <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
+        <img src="assets/img/portfolio/nightracer3.png" alt="NightRacer Screenshot 3" class="img-fluid rounded">
+    </div>
+    <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
+</div>
+
+<!-- Play Buttons -->
+
+<a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" rel="noopener noreferrer" class="btn btn-success">Play Cosmic Cat</a>
+
+<!-- Close Button -->
+<button class="btn btn-primary" data-bs-dismiss="modal">
+    <i class="fas fa-xmark fa-fw"></i>
+    Close Window
+</button>
+
+<!-- Styles -->
+<style>
+    .photo-reel-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+    }
+    .photo-reel-container img {
+        height: 200px;
+        border-radius: 10px;
+    }
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .scroll-left {
+        left: 10px;
+    }
+    .scroll-right {
+        right: 10px;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function scrollReel(amount) {
+        document.getElementById('photoReel').scrollLeft += amount;
+    }
+</script>
                                     </button>
                                 </div>
                             </div>
@@ -293,33 +350,96 @@
                 </div>
             </div>
         </div>
-        <!-- Portfolio Modal 2-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Gigil russian roulette</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="C:\Users\youri\OneDrive\Desktop\portofolio\assets\img\portfolio\Gigil.png" alt="..." />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt
-                                        https://gorott.itch.io/gigils-russian-roulete
-                                    </p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        <a href="https://gorott.itch.io/gigils-russian-roulete" target="_blank" rel="noopener noreferrer" class="btn btn-success">Play Gigil's Russian Roulette</a>
-                                        Close Window
+       <!-- Portfolio Modal 2 -->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pb-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <!-- Portfolio Modal - Title -->
+                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Gigil's Russian Roulette</h2>
+                            <!-- Icon Divider -->
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+                            <!-- Portfolio Modal - Image -->
+                            <img class="img-fluid rounded mb-5" src="assets/img/portfolio/Gigil.png" alt="Gigil's Russian Roulette" />
+                            <!-- Portfolio Modal - Text -->
+                            <p class="mb-4">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
+
+                            <!-- Photo Reel -->
+                            <div class="position-relative">
+                                <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
+                                <div class="photo-reel-container d-flex" id="photoReel">
+                                    <img src="assets/img/portfolio/Gigil1.png" alt="Screenshot 1" class="img-fluid rounded">
+                                    <img src="assets/img/portfolio/Gigil2.png" alt="Screenshot 2" class="img-fluid rounded">
+                                    <img src="assets/img/portfolio/gigil3.png" alt="Screenshot 3" class="img-fluid rounded">
+                                </div>
+                                <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
+                            </div>
+
+                            <!-- Play Button -->
+                            <a href="https://gorott.itch.io/gigils-russian-roulete" target="_blank" rel="noopener noreferrer" class="btn btn-success">Play Gigil's Russian Roulette</a>
+
+                            <!-- Close Button -->
+                            <button class="btn btn-primary" data-bs-dismiss="modal">
+                                <i class="fas fa-xmark fa-fw"></i>
+                                Close Window
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+    .photo-reel-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+    }
+    .photo-reel-container img {
+        height: 200px;
+        border-radius: 10px;
+    }
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .scroll-left {
+        left: 10px;
+    }
+    .scroll-right {
+        right: 10px;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function scrollReel(amount) {
+        document.getElementById('photoReel').scrollLeft += amount;
+    }
+</script>
                                     </button>
                                 </div>
                             </div>
