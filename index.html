@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -277,10 +279,12 @@
     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
     <div class="divider-custom-line"></div>
 </div>
-<!-- Portfolio Modal - Image-->
+
+<!-- Portfolio Modal - Image -->
 <img class="img-fluid rounded mb-5" src="assets/img/portfolio/T_title.png" alt="NightRacer Title" />
-<!-- Portfolio Modal - Text-->
-<p class="mb-4">Dit is mijn Nightracer project, dit project is een local multiplayer racing game.</p>
+
+<!-- Portfolio Modal - Text -->
+<p class="mb-4">ik heb bij de nightracer meerendeels gewerkt aan de auto mechanics en de leaderboard voor snelste tijd.</p>
 
 <!-- Photo Reel Container -->
 <div class="position-relative">
@@ -288,10 +292,181 @@
     <div class="photo-reel-container d-flex" id="photoReel">
         <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
         <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
-        <img src="assets/img/portfolio/nightracer3.png" alt="NightRacer Screenshot 3" class="img-fluid rounded">
     </div>
     <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
 </div>
+
+<!-- Code Snippet Section -->
+<h4 class="mt-4">Race Timer Leaderboard</h4>
+<button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer2')">Show Code</button>
+
+<div id="codeContainer2" class="collapse">
+    <pre><code class="language-csharp">
+public Text timerText;
+private float startTime;
+private bool isRaceStarted;
+private static RaceTimer instance;
+
+private void Start()
+{
+    if (instance != null && instance != this)
+    {
+        Destroy(gameObject);
+        return;
+    }
+
+    instance = this;
+    StartRace();
+}
+
+private void Update()
+{
+    if (isRaceStarted)
+    {
+        float currentTime = Time.time - startTime;
+        int minutes = (int)(currentTime / 60);
+        int seconds = (int)(currentTime % 60);
+        int milliseconds = (int)((currentTime * 1000) % 1000);
+
+        timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
+    }
+}
+
+public void StartRace()
+{
+    startTime = Time.time;
+    isRaceStarted = true;
+}
+
+public void EndRace()
+{
+    float raceTime = Time.time - startTime;
+    PlayerPrefs.SetFloat("RaceTime", raceTime);
+}
+
+private void OnDisable()
+{
+    EndRace();
+}
+    </code></pre>
+</div>
+
+<!-- JavaScript Function -->
+<script>
+    function toggleCode(id) {
+        const codeContainer = document.getElementById(id);
+        const button = document.querySelector(`button[onclick="toggleCode('${id}')"]`);
+        if (codeContainer.classList.contains("show")) {
+            codeContainer.classList.remove("show");
+            button.textContent = "Show Code";
+        } else {
+            codeContainer.classList.add("show");
+            button.textContent = "Hide Code";
+        }
+    }
+</script>
+
+    <p class="mb-4">dit is de code voor mijn auto</p>
+    
+<!-- Expandable Code Snippet -->
+<h4 class="mt-4">Car Controller Code</h4>
+<button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer')">Show Code</button>
+
+<div id="codeContainer" class="collapse">
+    <div class="position-relative">
+        <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copyCode()">Copy</button>
+        <pre><code class="language-csharp">
+public class CarController : MonoBehaviour {
+    
+    [SerializeField] WheelCollider frontRight;
+    [SerializeField] WheelCollider frontLeft;
+    [SerializeField] WheelCollider backRight;
+    [SerializeField] WheelCollider backLeft;
+
+    [SerializeField] private TMP_Text speedText;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private CountDownTimer countDownTimer;
+
+    [SerializeField] private string inputNameHorizontal;
+    [SerializeField] private string inputNameVertical;
+    [SerializeField] private string inputBrake;
+
+    public FinishlineChecker finishLineChecker;
+
+    public float acceleration = 500f;
+    public float brakingForce = 300f;
+    public float maxTurnAngle = 15f;
+    public float DownForceValue = 5000f;
+
+    private float currentAcceleration = 0f;
+    private float currentBrakeForce = 0f;
+    private float currentTurnAngle = 0f;
+
+    private void Update() {
+        speedText.text = (rb.velocity.magnitude * 2.23693629f).ToString("0") + (" kmph");
+    }
+
+    private void FixedUpdate() {
+        if (countDownTimer != null && countDownTimer.currentTime <= 0) {
+            currentAcceleration = acceleration * Input.GetAxis(inputNameVertical);
+            if (Input.GetButton(inputBrake))
+                currentBrakeForce = brakingForce;
+            else
+                currentBrakeForce = 0;
+
+            ApplyAcceleration();
+            ApplyBrakes();
+
+            currentTurnAngle = maxTurnAngle * Input.GetAxis(inputNameHorizontal);
+            frontLeft.steerAngle = currentTurnAngle;
+            frontRight.steerAngle = currentTurnAngle;
+
+            AddDownForce();
+        }
+    }
+
+    private void ApplyAcceleration() {
+        frontRight.motorTorque = currentAcceleration;
+        frontLeft.motorTorque = currentAcceleration;
+    }
+
+    private void ApplyBrakes() {
+        frontRight.brakeTorque = currentBrakeForce;
+        frontLeft.brakeTorque = currentBrakeForce;
+        backRight.brakeTorque = currentBrakeForce;
+        backLeft.brakeTorque = currentBrakeForce;
+    }
+
+    private void AddDownForce() {
+        rb.AddForce(-transform.up * DownForceValue * rb.velocity.magnitude);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Finish")) {
+            string carName = gameObject.name;
+            float finishTime = Time.time;
+            finishLineChecker.ParticipantCrossedFinishLine(carName, finishTime);
+        }
+    }
+}
+        </code></pre>
+    </div>
+</div>
+
+<!-- JavaScript Function -->
+<script>
+    function toggleCode(id) {
+        const codeContainer = document.getElementById(id);
+        const button = document.querySelector(`button[onclick="toggleCode('${id}')"]`);
+        if (codeContainer.classList.contains("show")) {
+            codeContainer.classList.remove("show");
+            button.textContent = "Show Code";
+        } else {
+            codeContainer.classList.add("show");
+            button.textContent = "Hide Code";
+        }
+    }
+</script>
 
 <!-- Play Buttons -->
 
