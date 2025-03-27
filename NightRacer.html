@@ -16,7 +16,7 @@
             padding-top: 60px;
         }
         .container {
-            max-width: 1200px; /* Increase container width */
+            max-width: 900px;
             margin: auto;
             padding: 20px;
         }
@@ -103,14 +103,14 @@
         }
         video {
             width: 100%;
-            max-width: 800px; /* Adjust the max-width to make the video larger */
+            max-width: 600px; /* Larger video */
             border-radius: 8px;
         }
         .code-video-container {
             display: flex;
-            gap: 30px;
-            max-width: 100%; /* Full width */
             justify-content: space-between;
+            gap: 30px; /* Added gap between the code and video */
+            margin-top: 20px;
         }
         .code-section pre {
             width: 100%;
@@ -119,25 +119,38 @@
             border-radius: 8px;
             overflow: auto;
         }
-        /* Make the dropdown content wider */
-        .collapse {
-            max-width: 1200px; /* Adjust width of the dropdown */
-            margin-left: auto;
-            margin-right: auto;
+
+        /* Background color for headers */
+        .header-code, .header-video {
+            background-color: #34495e; /* Dark gray for both headers */
+            padding: 10px;
+            color: #ecf0f1; /* Lighter text color */
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-align: center;
+            width: 100%;
         }
 
-        /* Two header layout */
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 20px;
+        .header-video {
+            background-color: #8e44ad; /* Purple background for video header */
         }
 
-        .code-left-header,
-        .code-right-header {
-            width: 48%; /* Each header takes up about half the width */
+        .header-code {
+            background-color: #3498db; /* Blue background for code header */
+        }
+
+        /* Flexbox for the headers */
+        .code-video-container > div {
+            flex: 1;
+        }
+
+        /* Responsive layout for small devices */
+        @media (max-width: 768px) {
+            .code-video-container {
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -152,7 +165,7 @@
     <!-- Content Section -->
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <!-- Title -->
                 <h2 class="portfolio-modal-title text-secondary mb-3">NightRacer</h2>
 
@@ -169,16 +182,26 @@
                 <!-- Portfolio Modal - Text -->
                 <p class="mb-4">Ik heb bij NightRacer meerendeels gewerkt aan de auto mechanics en de leaderboard voor snelste tijd.</p>
 
-                <!-- Header Container -->
-                <div class="header-container">
-                    <!-- Code Section Header -->
-                    <div class="code-left-header">
-                        <h3 class="mb-3 text-light">Race Timer Leaderboard</h3>
+                <!-- Photo Reel -->
+                <div class="position-relative">
+                    <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
+                    <div class="photo-reel-container d-flex overflow-x-auto gap-3 p-2" id="photoReel">
+                        <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
+                        <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
+                    </div>
+                    <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
+                </div>
+
+                <!-- Code and Video Section Side by Side -->
+                <div class="code-video-container">
+                    <!-- Code Section -->
+                    <div>
+                        <div class="header-code">Code</div>
                         <button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer2')">Show Code</button>
+
                         <div id="codeContainer2" class="collapse position-relative">
                             <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copyCode('raceTimerCode')">Copy</button>
-                            <div class="code-video-container">
-                                <pre><code id="raceTimerCode" class="language-csharp">
+                            <pre><code id="raceTimerCode" class="language-csharp">
 public Text timerText;
 private float startTime;
 private bool isRaceStarted;
@@ -217,14 +240,13 @@ public void EndRace() {
 private void OnDisable() {
     EndRace();
 }
-                                </code></pre>
-                            </div>
+                            </code></pre>
                         </div>
                     </div>
 
-                    <!-- Video Section Header -->
-                    <div class="code-right-header">
-                        <h3 class="mb-3 text-light">Gameplay Video</h3>
+                    <!-- Video Section -->
+                    <div>
+                        <div class="header-video">Video</div>
                         <div class="video-container">
                             <video controls>
                                 <source src="assets/videos/nightracer_gameplay.mp4" type="video/mp4">
@@ -244,6 +266,11 @@ private void OnDisable() {
 
     <!-- JavaScript -->
     <script>
+        // Scroll functionality for the photo reel
+        function scrollReel(amount) {
+            document.getElementById('photoReel').scrollLeft += amount;
+        }
+
         // Toggle the code visibility
         function toggleCode(codeContainerId) {
             const codeContainer = document.getElementById(codeContainerId);
