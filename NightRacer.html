@@ -100,17 +100,26 @@
         .video-container {
             margin-top: 20px;
             text-align: center;
+            max-width: 800px; /* Match the video size */
+            margin: auto; /* Center the video */
         }
         video {
             width: 100%;
-            max-width: 600px; /* Larger video */
+            max-width: 800px; /* Increased max-width for larger video */
             border-radius: 8px;
         }
         .code-video-container {
             display: flex;
             justify-content: space-between;
-            gap: 30px; /* Added gap between the code and video */
-            margin-top: 20px;
+            gap: 50px; /* Increased gap between the code and video */
+            margin-top: 30px; /* Increased margin for better spacing */
+        }
+        .code-video-container > div {
+            flex: 1;
+            padding: 20px; /* Added padding for larger containers */
+            background-color: #2c3e50; /* Consistent background color */
+            border-radius: 10px; /* Rounded corners for containers */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for emphasis */
         }
         .code-section pre {
             width: 100%;
@@ -123,9 +132,9 @@
         /* Background color for headers */
         .header-code, .header-video {
             background-color: #34495e; /* Dark gray for both headers */
-            padding: 10px;
+            padding: 15px; /* Adjusted padding for larger headers */
             color: #ecf0f1; /* Lighter text color */
-            font-size: 18px;
+            font-size: 28px; /* Increased font size for headers */
             font-weight: bold;
             border-radius: 8px;
             text-align: center;
@@ -282,6 +291,8 @@ private void OnDisable() {
             const code = document.getElementById(codeId).textContent;
             navigator.clipboard.writeText(code).then(() => {
                 alert('Code copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy code: ' + err);
             });
         }
     </script>
