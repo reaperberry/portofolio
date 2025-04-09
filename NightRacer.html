@@ -1,216 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NightRacer Portfolio</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #2c3e50; /* Darker background */
-            color: #ecf0f1; /* Lighter text color */
-            font-family: Arial, sans-serif;
-            padding-top: 60px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-        .portfolio-modal-title {
-            color: #ecf0f1;
-            text-transform: uppercase;
-        }
-        .divider-custom {
-            margin-bottom: 30px;
-        }
-        .divider-custom-line {
-            background-color: #ecf0f1; /* Lighter lines to match text */
-            height: 1px;
-            width: 100px;
-            margin: 0 auto;
-        }
-        .divider-custom-icon {
-            color: #ecf0f1;
-            font-size: 24px;
-            margin-top: -10px;
-        }
-        .portfolio-modal-body {
-            background-color: #34495e; /* Darker background for content */
-            border-radius: 8px;
-            padding: 20px;
-        }
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7); /* Darker background for buttons */
-            color: #ecf0f1; /* Light text */
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .scroll-left {
-            left: 10px;
-        }
-        .scroll-right {
-            right: 10px;
-        }
-        .navbar {
-            margin-bottom: 20px;
-            background-color: #34495e; /* Darker navbar */
-        }
-        .navbar a {
-            color: #ecf0f1; /* Lighter navbar text */
-        }
-        .navbar a:hover {
-            color: #f39c12; /* Light orange hover effect */
-        }
-        .btn-primary {
-            background-color: #3498db; /* Blue buttons */
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #2980b9; /* Darker blue on hover */
-        }
-        .btn-success {
-            background-color: #2ecc71; /* Green play button */
-            border: none;
-        }
-        .btn-success:hover {
-            background-color: #27ae60; /* Darker green on hover */
-        }
-        .btn-sm {
-            background-color: #7f8c8d; /* Small buttons with neutral color */
-            color: #ecf0f1;
-        }
-        .btn-sm:hover {
-            background-color: #95a5a6; /* Slightly lighter neutral on hover */
-        }
-        .code-section {
-            background-color: #1abc9c; /* Dark teal for code sections */
-            color: #ecf0f1;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .video-container {
-            margin-top: 20px;
-            text-align: center;
-            max-width: 800px; /* Match the video size */
-            margin: auto; /* Center the video */
-        }
-        video {
-            width: 100%;
-            max-width: 800px; /* Increased max-width for larger video */
-            border-radius: 8px;
-        }
-        .code-video-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 50px; /* Increased gap between the code and video */
-            margin-top: 30px; /* Increased margin for better spacing */
-        }
-        .code-video-container > div {
-            flex: 1;
-            padding: 20px; /* Added padding for larger containers */
-            background-color: #2c3e50; /* Consistent background color */
-            border-radius: 10px; /* Rounded corners for containers */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for emphasis */
-        }
-        .code-section pre {
-            width: 100%;
-            background-color: #34495e;
-            padding: 15px;
-            border-radius: 8px;
-            overflow: auto;
-        }
-
-        /* Background color for headers */
-        .header-code, .header-video {
-            background-color: #34495e; /* Dark gray for both headers */
-            padding: 15px; /* Adjusted padding for larger headers */
-            color: #ecf0f1; /* Lighter text color */
-            font-size: 28px; /* Increased font size for headers */
-            font-weight: bold;
-            border-radius: 8px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .header-video {
-            background-color: #8e44ad; /* Purple background for video header */
-        }
-
-        .header-code {
-            background-color: #3498db; /* Blue background for code header */
-        }
-
-        /* Flexbox for the headers */
-        .code-video-container > div {
-            flex: 1;
-        }
-
-        /* Responsive layout for small devices */
-        @media (max-width: 768px) {
-            .code-video-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NightRacer Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      font-family: Arial, sans-serif;
+    }
+    .portfolio-title {
+      margin-top: 2rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .divider-custom {
+      margin: 1rem auto 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .divider-custom-line {
+      background-color: #ecf0f1;
+      height: 1px;
+      width: 100px;
+    }
+    .divider-custom-icon {
+      color: #ecf0f1;
+      font-size: 24px;
+      margin: 0 10px;
+    }
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: #ecf0f1;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .scroll-left {
+      left: 10px;
+    }
+    .scroll-right {
+      right: 10px;
+    }
+    .photo-reel-container img {
+      height: 200px;
+    }
+    .code-video-container {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .code-video-container > div {
+      flex: 1;
+    }
+    .header-section {
+      background-color: #34495e;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    pre {
+      background-color: #34495e;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .btn-sm {
+      background-color: #7f8c8d;
+      color: #ecf0f1;
+    }
+    @media (max-width: 768px) {
+      .code-video-container {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Main Page Header with link to back -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">Back to Main Page</a>
-        </div>
-    </nav>
-
-    <!-- Content Section -->
+  <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <!-- Title -->
-                <h2 class="portfolio-modal-title text-secondary mb-3">NightRacer</h2>
+      <a class="navbar-brand" href="index.html">Back to Main Page</a>
+    </div>
+  </nav>
 
-                <!-- Icon Divider -->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
+  <div class="container">
+    <h2 class="portfolio-title text-secondary">NightRacer</h2>
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+      <div class="divider-custom-line"></div>
+    </div>
 
-                <!-- Portfolio Modal - Image -->
-                <img class="img-fluid rounded mb-4" src="assets/img/portfolio/T_title.png" alt="NightRacer Title" />
+    <img class="img-fluid rounded mb-4 d-block mx-auto" src="assets/img/portfolio/T_title.png" alt="NightRacer Title" style="max-width: 100%; height: auto;" />
+    <p class="text-center">Ik heb bij NightRacer meerendeels gewerkt aan de auto mechanics en de leaderboard voor snelste tijd.</p>
 
-                <!-- Portfolio Modal - Text -->
-                <p class="mb-4">Ik heb bij NightRacer meerendeels gewerkt aan de auto mechanics en de leaderboard voor snelste tijd.</p>
+    <div class="position-relative mb-5">
+      <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
+      <div class="photo-reel-container d-flex overflow-auto gap-3 px-4" id="photoReel">
+        <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
+        <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
+      </div>
+      <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
+    </div>
 
-                <!-- Photo Reel -->
-                <div class="position-relative">
-                    <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
-                    <div class="photo-reel-container d-flex overflow-x-auto gap-3 p-2" id="photoReel">
-                        <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
-                        <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
-                    </div>
-                    <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
-                </div>
-
-                <!-- Code and Video Section Side by Side -->
-                <div class="code-video-container">
-                    <!-- Code Section -->
-                    <div>
-                        <div class="header-code">Code</div>
-                        <button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer2')">Show Code</button>
-
-                        <div id="codeContainer2" class="collapse position-relative">
-                            <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copyCode('raceTimerCode')">Copy</button>
-                            <pre><code id="raceTimerCode" class="language-csharp">
+    <div class="code-video-container">
+      <div>
+        <div class="header-section">Code</div>
+        <button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer2')">Show Code</button>
+        <div id="codeContainer2" class="collapse">
+          <button class="btn btn-sm position-absolute top-0 end-0 m-2" onclick="copyCode('raceTimerCode')">Copy</button>
+          <pre><code id="raceTimerCode">
 public Text timerText;
 private float startTime;
 private bool isRaceStarted;
@@ -248,57 +158,43 @@ public void EndRace() {
 
 private void OnDisable() {
     EndRace();
-}
-                            </code></pre>
-                        </div>
-                    </div>
-
-                    <!-- Video Section -->
-                    <div>
-                        <div class="header-video">Video</div>
-                        <div class="video-container">
-                            <video controls>
-                                <source src="assets/videos/nightracer_gameplay.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Play Game Button -->
-                <a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" rel="noopener noreferrer" class="btn btn-success mt-3">
-                    <i class="fas fa-gamepad"></i> Play NightRacer
-                </a>
-            </div>
+}</code></pre>
         </div>
+      </div>
+
+      <div>
+        <div class="header-section bg-purple">Video</div>
+        <div class="ratio ratio-16x9">
+          <iframe src="https://youtu.be/gTHQZ5cuKXw" title="NightRacer Video" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Scroll functionality for the photo reel
-        function scrollReel(amount) {
-            document.getElementById('photoReel').scrollLeft += amount;
-        }
+    <div class="text-center mt-4">
+      <a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" class="btn btn-success">
+        <i class="fas fa-gamepad"></i> Play NightRacer
+      </a>
+    </div>
+  </div>
 
-        // Toggle the code visibility
-        function toggleCode(codeContainerId) {
-            const codeContainer = document.getElementById(codeContainerId);
-            codeContainer.classList.toggle('collapse');
-        }
-
-        // Copy code to clipboard
-        function copyCode(codeId) {
-            const code = document.getElementById(codeId).textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                alert('Code copied to clipboard!');
-            }).catch(err => {
-                alert('Failed to copy code: ' + err);
-            });
-        }
-    </script>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script>
+    function scrollReel(amount) {
+      document.getElementById('photoReel').scrollLeft += amount;
+    }
+    function toggleCode(id) {
+      document.getElementById(id).classList.toggle('collapse');
+    }
+    function copyCode(codeId) {
+      const code = document.getElementById(codeId).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Code copied to clipboard!');
+      }).catch(err => {
+        alert('Failed to copy code: ' + err);
+      });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>

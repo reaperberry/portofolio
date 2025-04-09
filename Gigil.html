@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #4d4141;
             color: #333;
             font-family: Arial, sans-serif;
             padding-top: 60px;
@@ -19,7 +19,7 @@
             padding: 20px;
         }
         .player-container {
-            max-width: 600px;
+            max-width: 800px; /* Match the video size */
             margin: auto;
             padding: 20px;
             background: #ffffff;
@@ -28,6 +28,7 @@
         }
         video {
             width: 100%;
+            max-width: 800px; /* Increased max-width for larger video */
             border-radius: 8px;
         }
         .photo-reel-container {
@@ -75,11 +76,13 @@
 
         <img class="img-fluid rounded mb-4" src="assets/img/portfolio/Gigil.png" alt="Gigil's Russian Roulette">
 
-        <p class="mb-4">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
+        <p class="mb-4" style="color: white;">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
 
         <!-- Video Player -->
         <div class="player-container">
-            <video id="video" src="assets/img/portfolio/gigilsdeath.mp4"></video>
+            <video id="video" src="assets/img/portfolio/gigilsdeath.mp4" controls>
+                Your browser does not support the video tag.
+            </video>
             
             <div class="controls mt-2">
                 <button id="playPauseBtn" class="btn btn-primary">Play</button>

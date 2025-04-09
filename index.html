@@ -1,58 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Freelancer - portofolio</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-            <div class="container">í
-                <a class="navbar-brand" href="#page-top">Youri Wallaart</a>
-                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
-                    </ul>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Freelancer - Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">Youri Wallaart</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                Menu <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Masthead -->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex flex-column align-items-center">
+            <img class="masthead-avatar mb-4" src="assets/img/portfolio/mooie.JPG" alt="..." />
+            <h1 class="masthead-heading text-uppercase mb-0">Portofolio</h1>
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <p class="masthead-subheading font-weight-light mb-4">GameDeveloper - Gamer</p>
+
+            <!-- Game Area -->
+            <div class="text-white w-100 mt-3">
+                <!-- USE MOUSE Text -->
+                <div class="text-center mb-2">
+                    <span style="font-family: 'Patrick Hand', cursive; font-size: 26px;">USE MOUSE</span>
+                </div>
+
+                <!-- Score Counter -->
+                <div class="text-center mb-2">
+                    <span id="scoreBoard" style="font-size: 24px; font-weight: bold;">Player: 0 | AI: 0</span>
+                </div>
+
+                <!-- Pong Game -->
+                <div class="d-flex justify-content-center">
+                    <canvas id="gameCanvas" width="800" height="500" style="border: 3px solid white; max-width: 100%; height: auto;"></canvas>
                 </div>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="C:\Users\youri\OneDrive\Desktop\portofolio\assets\img\portfolio\mooie.JPG" alt="..." />
-                <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Portofolio</h1>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">GameDeveloper - Gamer</p>
-            </div>
-        </header>
+        </div>
+    </header>
+
+    <!-- Pong Game Script -->
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+    
+        let playerY = canvas.height / 2 - 40;
+        let aiY = canvas.height / 2 - 40;
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height / 2;
+        let ballSpeedX = 4;
+        let ballSpeedY = 4;
+    
+        let playerScore = 0;
+        let aiScore = 0;
+    
+        const scoreBoard = document.getElementById('scoreBoard');
+    
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            playerY = e.clientY - rect.top - 40;
+        });
+    
+        function drawRect(x, y, w, h, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, w, h);
+        }
+    
+        function drawBall(x, y, r, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    
+        function resetBall(scoredBy) {
+            if (scoredBy === 'player') playerScore++;
+            if (scoredBy === 'ai') aiScore++;
+    
+            scoreBoard.textContent = `Player: ${playerScore} | AI: ${aiScore}`;
+    
+            ballX = canvas.width / 2;
+            ballY = canvas.height / 2;
+            ballSpeedX = -ballSpeedX;
+            ballSpeedY = 4 * (Math.random() > 0.5 ? 1 : -1);
+        }
+    
+        function updateGame() {
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+    
+            // Bounce top/bottom
+            if (ballY < 0 || ballY > canvas.height) ballSpeedY = -ballSpeedY;
+    
+            // Player paddle
+            if (ballX < 20 && ballY > playerY && ballY < playerY + 80) {
+                ballSpeedX = -ballSpeedX;
+            }
+    
+            // AI paddle
+            if (ballX > canvas.width - 30 && ballY > aiY && ballY < aiY + 80) {
+                ballSpeedX = -ballSpeedX;
+            }
+    
+            // AI logic with smooth tracking and occasional mistakes
+            const aiCenter = aiY + 40;
+            const targetY = ballY - 40;
+            const trackingSpeed = 0.07; // how fast the AI reacts
+            const reactionChance = 0.93; // % chance to move each frame
+    
+            if (Math.random() < reactionChance && ballX > canvas.width / 2) {
+                aiY += (targetY - aiY) * trackingSpeed;
+            }
+    
+            // Score
+            if (ballX < 0) resetBall('ai');
+            if (ballX > canvas.width) resetBall('player');
+        }
+    
+        function drawGame() {
+            drawRect(0, 0, canvas.width, canvas.height, "black");
+            drawRect(10, playerY, 10, 80, "white");
+            drawRect(canvas.width - 20, aiY, 10, 80, "white");
+            drawBall(ballX, ballY, 5, "white");
+        }
+    
+        function gameLoop() {
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+    
+        gameLoop();
+    </script>
+</html>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
