@@ -104,7 +104,7 @@
             ballX = canvas.width / 2;
             ballY = canvas.height / 2;
             ballSpeedX = -ballSpeedX;
-            ballSpeedY = 4 * (Math.random() > 0.5 ? 1 : -1);
+            ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
         }
     
         function updateGame() {
@@ -127,8 +127,8 @@
             // AI logic with smooth tracking and occasional mistakes
             const aiCenter = aiY + 40;
             const targetY = ballY - 40;
-            const trackingSpeed = 0.07; // how fast the AI reacts
-            const reactionChance = 0.93; // % chance to move each frame
+            const trackingSpeed = 0.15; // how fast the AI reacts
+            const reactionChance = 0.45; // % chance to move each frame
     
             if (Math.random() < reactionChance && ballX > canvas.width / 2) {
                 aiY += (targetY - aiY) * trackingSpeed;
