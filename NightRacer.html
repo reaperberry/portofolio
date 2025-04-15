@@ -74,7 +74,8 @@
       background-color: #34495e;
       padding: 1rem;
       border-radius: 0.5rem;
-      overflow-x: auto;
+      white-space: pre-wrap; /* Allow text to wrap */
+      word-wrap: break-word; /* Break long words if necessary */
       max-width: 600px; /* Restrict the width of the code text */
       margin: auto; /* Center the code block */
     }
@@ -119,14 +120,14 @@
     <div class="code-video-container">
       <div>
         <div class="header-section">Code</div>
-        <pre><code id="raceTimerCode">
-            <p class="text-center">in dit project heb ik met 5 andere studenten een race game gemaakt voor een schoolproject en we hadden er 3 weken voor</p>
-        </code></pre>
+        <pre>
+          <p class="text-center">in dit project heb ik met 5 andere studenten een race game gemaakt voor een schoolproject en we hadden er 3 weken voor</p>
+        </pre>
       </div>
 
       <!-- Video Section -->
       <div>
-        <div class="header-section bg-purple">Video</div>
+        <div class="header-section bg-purple">first version</div>
         <div class="ratio ratio-16x9">
           <iframe src="https://www.youtube.com/embed/gTHQZ5cuKXw" title="NightRacer Video" allowfullscreen></iframe>
         </div>
@@ -137,11 +138,18 @@
     <!-- Second Video Section -->
     <div class="code-video-container">
       <div>
-        <div class="header-section bg-purple">Second Video</div>
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/ILI59qZsEZ4" title="NightRacer Second Video" allowfullscreen></iframe>
+        <div class="header-section bg-purple">final version</div>
+        <h3 class="text-center mt-3">Improved Gameplay and Visuals</h3>
+        <div class="d-flex flex-row align-items-center">
+          <div class="flex-shrink-0" style="flex: 1;">
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/ILI59qZsEZ4" title="NightRacer Second Video" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="flex-grow-1 ms-3 p-3" style="flex: 1; background-color: #34495e; border-radius: 1rem; padding-top: 2rem; padding-bottom: 2rem;">
+            <p>Dit is een latere versie van het spel waarin we verbeterde mechanics en visuals hebben geïmplementeerd. Het toont de vooruitgang die we hebben geboekt na de eerste versie.</p>
+          </div>
         </div>
-        <p class="text-center">dit is een latere versie van het spel met verbeterde mechanics en visuals</p>
       </div>
     </div>
 

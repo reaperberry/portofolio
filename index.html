@@ -78,24 +78,28 @@
     
         const scoreBoard = document.getElementById('scoreBoard');
     
-        canvas.addEventListener('mousemove', (e) => {
+        canvas.addEventListener('mousemove', (e) => 
+        {
             const rect = canvas.getBoundingClientRect();
             playerY = e.clientY - rect.top - 40;
         });
     
-        function drawRect(x, y, w, h, color) {
+        function drawRect(x, y, w, h, color) 
+        {
             ctx.fillStyle = color;
             ctx.fillRect(x, y, w, h);
         }
     
-        function drawBall(x, y, r, color) {
+        function drawBall(x, y, r, color) 
+        {
             ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(x, y, r, 0, Math.PI * 2);
             ctx.fill();
         }
     
-        function resetBall(scoredBy) {
+        function resetBall(scoredBy) 
+        {
             if (scoredBy === 'player') playerScore++;
             if (scoredBy === 'ai') aiScore++;
     
@@ -107,7 +111,8 @@
             ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
         }
     
-        function updateGame() {
+        function updateGame() 
+        {
             ballX += ballSpeedX;
             ballY += ballSpeedY;
     
@@ -139,14 +144,17 @@
             if (ballX > canvas.width) resetBall('player');
         }
     
-        function drawGame() {
+        function drawGame() 
+        {
             drawRect(0, 0, canvas.width, canvas.height, "black");
             drawRect(10, playerY, 10, 80, "white");
             drawRect(canvas.width - 20, aiY, 10, 80, "white");
             drawBall(ballX, ballY, 5, "white");
         }
     
-        function gameLoop() {
+        function gameLoop() 
+        {
+
             updateGame();
             drawGame();
             requestAnimationFrame(gameLoop);
@@ -201,13 +209,13 @@
                     </div>
                     <!-- Game Project 4-->
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <a href="game-project4.html" class="portfolio-item mx-auto">
+                        <a href="anxious party.html" class="portfolio-item mx-auto">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white">
                                     <i class="fas fa-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/game.png" alt="Game Project 4 - Space Adventures" />
+                            <img class="img-fluid" src="assets/img/portfolio/unreal.png" alt="Game Project 4 - Space Adventures" />
                         </a>
                     </div>
                     <!-- Game Project 5-->

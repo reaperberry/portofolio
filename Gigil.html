@@ -111,22 +111,10 @@
 
         <!-- Unity Code Section -->
         <section id="unity-code" class="p-4 bg-light rounded shadow mt-4">
-            <h3 class="mb-3">Unity C# Code</h3>
-            <p>Dit is de animator/game manager code.</p>
-            <div class="code-block">
-                <pre><code class="language-csharp">
-public void Shoot(EntityType entityType) {
-    hasPicked = true;
-    Entity target = GameManager.Instance.GetEntity(entityType);
-    if (target != null) {
-        target.animator.SetTrigger("Pressed");
-        if (entityType == this.entityType) target.animator.SetBool("Is Self", true);
-        else animator.SetTrigger("Aim At Target");
-        ShouldTalk();
-    }
-}
-                </code></pre>
-            </div>
+            <h3 class="mb-3">Informatie over het project</h3>
+            <p>Wij hadden voor dit project 8 weken voor met de uitdaging dat we het met webGL op itch.io zetten.
+            <br>Het thema was instantly hooked dus wij dachten aan een snelle Russian Roulette game</p>
+            </p>
         </section>
 
         <!-- Play Button -->
