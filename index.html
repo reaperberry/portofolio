@@ -116,7 +116,7 @@
             ballX += ballSpeedX;
             ballY += ballSpeedY;
     
-            // Bounce top/bottom
+            // aabb collision 
             if (ballY < 0 || ballY > canvas.height) ballSpeedY = -ballSpeedY;
     
             // Player paddle
@@ -129,11 +129,11 @@
                 ballSpeedX = -ballSpeedX;
             }
     
-            // AI logic with smooth tracking and occasional mistakes
+            // AI logica
             const aiCenter = aiY + 40;
             const targetY = ballY - 40;
-            const trackingSpeed = 0.15; // how fast the AI reacts
-            const reactionChance = 0.45; // % chance to move each frame
+            const trackingSpeed = 0.15; // snelheid van ai
+            const reactionChance = 0.45; // kans dat de ai reageert
     
             if (Math.random() < reactionChance && ballX > canvas.width / 2) {
                 aiY += (targetY - aiY) * trackingSpeed;
@@ -248,25 +248,25 @@
                         <h2 class="mb-4">Programming Skills</h2>
                     
                         <div class="mb-3">
-                            <p>c# <span class="float-end">70%</span></p>
+                            <p>c# <span class="float-end"></span></p>
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     
                         <div class="mb-3">
-                            <p>JavaScript <span class="float-end">30%</span></p>
+                            <p>JavaScript <span class="float-end"></span></p>
                             <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     
                         
                     
                         <div class="mb-3">
-                            <p>Unreal Engine (Blueprint) <span class="float-end">60%</span></p>
+                            <p>Unreal Engine (Blueprint) <span class="float-end"></span></p>
                             <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     
@@ -285,190 +285,7 @@
                
         
        
-        <!-- Portfolio Modals-->
-<!-- Portfolio Modal 1 -->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center pb-5">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <!-- Portfolio Modal - Title -->
-                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-3">NightRacer</h2>
-
-                            <!-- Icon Divider -->
-                            <div class="divider-custom">
-                                <div class="divider-custom-line"></div>
-                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                <div class="divider-custom-line"></div>
-                            </div>
-
-                            <!-- Portfolio Modal - Image -->
-                            <img class="img-fluid rounded mb-4" src="assets/img/portfolio/T_title.png" alt="NightRacer Title" />
-
-                            <!-- Portfolio Modal - Text -->
-                            <p class="mb-4">Ik heb bij NightRacer meerendeels gewerkt aan de auto mechanics en de leaderboard voor snelste tijd.</p>
-
-                            <!-- Photo Reel -->
-                            <div class="position-relative">
-                                <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
-                                <div class="photo-reel-container d-flex overflow-x-auto gap-3 p-2" id="photoReel">
-                                    <img src="assets/img/portfolio/catpic.png" alt="NightRacer Screenshot 1" class="img-fluid rounded">
-                                    <img src="assets/img/portfolio/Catgameplay.png" alt="NightRacer Screenshot 2" class="img-fluid rounded">
-                                </div>
-                                <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
-                            </div>
-
-                            <!-- Race Timer Code Section -->
-                            <section class="p-4 bg-light rounded shadow mt-4">
-                                <h3 class="mb-3">Race Timer Leaderboard</h3>
-                                <button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer2')">Show Code</button>
-
-                                <div id="codeContainer2" class="collapse position-relative">
-                                    <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copyCode('raceTimerCode')">Copy</button>
-                                    <pre><code id="raceTimerCode" class="language-csharp">
-public Text timerText;
-private float startTime;
-private bool isRaceStarted;
-private static RaceTimer instance;
-
-private void Start() {
-    if (instance != null && instance != this) {
-        Destroy(gameObject);
-        return;
-    }
-    instance = this;
-    StartRace();
-}
-
-private void Update() {
-    if (isRaceStarted) {
-        float currentTime = Time.time - startTime;
-        int minutes = (int)(currentTime / 60);
-        int seconds = (int)(currentTime % 60);
-        int milliseconds = (int)((currentTime * 1000) % 1000);
-
-        timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
-    }
-}
-
-public void StartRace() {
-    startTime = Time.time;
-    isRaceStarted = true;
-}
-
-public void EndRace() {
-    float raceTime = Time.time - startTime;
-    PlayerPrefs.SetFloat("RaceTime", raceTime);
-}
-
-private void OnDisable() {
-    EndRace();
-}
-                                    </code></pre>
-                                </div>
-                            </section>
-
-                            <!-- Car Controller Code Section -->
-                            <section class="p-4 bg-light rounded shadow mt-4">
-                                <h3 class="mb-3">Car Controller Code</h3>
-                                <button class="btn btn-primary mb-2" onclick="toggleCode('codeContainer')">Show Code</button>
-
-                                <div id="codeContainer" class="collapse position-relative">
-                                    <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copyCode('carControllerCode')">Copy</button>
-                                    <pre><code id="carControllerCode" class="language-csharp">
-public class CarController : MonoBehaviour {
-
-    [SerializeField] WheelCollider frontRight;
-    [SerializeField] WheelCollider frontLeft;
-    [SerializeField] WheelCollider backRight;
-    [SerializeField] WheelCollider backLeft;
-
-    [SerializeField] private TMP_Text speedText;
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private CountDownTimer countDownTimer;
-
-    [SerializeField] private string inputNameHorizontal;
-    [SerializeField] private string inputNameVertical;
-    [SerializeField] private string inputBrake;
-
-    public FinishlineChecker finishLineChecker;
-
-    public float acceleration = 500f;
-    public float brakingForce = 300f;
-    public float maxTurnAngle = 15f;
-    public float DownForceValue = 5000f;
-
-    private float currentAcceleration = 0f;
-    private float currentBrakeForce = 0f;
-    private float currentTurnAngle = 0f;
-
-    private void Update() {
-        speedText.text = (rb.velocity.magnitude * 2.23693629f).ToString("0") + " kmph";
-    }
-
-    private void FixedUpdate() {
-        if (countDownTimer != null && countDownTimer.currentTime <= 0) {
-            currentAcceleration = acceleration * Input.GetAxis(inputNameVertical);
-            currentBrakeForce = Input.GetButton(inputBrake) ? brakingForce : 0;
-
-            ApplyAcceleration();
-            ApplyBrakes();
-
-            currentTurnAngle = maxTurnAngle * Input.GetAxis(inputNameHorizontal);
-            frontLeft.steerAngle = currentTurnAngle;
-            frontRight.steerAngle = currentTurnAngle;
-
-            AddDownForce();
-        }
-    }
-
-    private void ApplyAcceleration() {
-        frontRight.motorTorque = currentAcceleration;
-        frontLeft.motorTorque = currentAcceleration;
-    }
-
-    private void ApplyBrakes() {
-        frontRight.brakeTorque = currentBrakeForce;
-        frontLeft.brakeTorque = currentBrakeForce;
-        backRight.brakeTorque = currentBrakeForce;
-        backLeft.brakeTorque = currentBrakeForce;
-    }
-
-    private void AddDownForce() {
-        rb.AddForce(-transform.up * DownForceValue * rb.velocity.magnitude);
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Finish")) {
-            string carName = gameObject.name;
-            float finishTime = Time.time;
-            finishLineChecker.ParticipantCrossedFinishLine(carName, finishTime);
-        }
-    }
-}
-                                    </code></pre>
-                                </div>
-                            </section>
-<!-- Play Game Button -->
-<a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" rel="noopener noreferrer" class="btn btn-success mt-3">
-    <i class="fas fa-gamepad"></i> Play NightRacer
-</a>
-                            <!-- Close Button -->
-                            <button class="btn btn-primary mt-4" data-bs-dismiss="modal">
-                                <i class="fas fa-times fa-fw"></i> Close Window
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+       
 
 <!-- JavaScript Function -->
 <script>
@@ -657,75 +474,7 @@ public class CarController : MonoBehaviour {
                                 
                                 </body>
 
-                            <!-- Photo Reel -->
-                            <div class="position-relative">
-                                <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
-                                <div class="photo-reel-container d-flex overflow-x-auto gap-3 p-2" id="photoReel">
-                                    <img src="assets/img/portfolio/Gigil1.png" alt="Screenshot 1" class="img-fluid rounded">
-                                    <img src="assets/img/portfolio/Gigil2.png" alt="Screenshot 2" class="img-fluid rounded">
-                                    <img src="assets/img/portfolio/Gigil3.png" alt="Screenshot 3" class="img-fluid rounded">
-                                </div>
-                                <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
-                            </div>
-
-                            <!-- Unity Code Section -->
-                            <section id="unity-code" class="p-4 bg-light rounded shadow mt-4">
-                                <h3 class="mb-3">Unity C# Code</h3>
-                                <p>Dit is de animator/game manager code.</p>
-                                <div class="code-block">
-                                    <pre><code class="language-csharp">
-public void Shoot(EntityType entityType) {
-    hasPicked = true;
-    Entity target = GameManager.Instance.GetEntity(entityType);
-    if (target != null) {
-        target.animator.SetTrigger("Pressed");
-        if (entityType == this.entityType) target.animator.SetBool("Is Self", true);
-        else animator.SetTrigger("Aim At Target");
-        ShouldTalk();
-    }
-}
-
-public void HitTarget(EntityType entityType) {
-    if (animator.GetBool("Is Self") && animator.GetBool("Pressed")) {
-        HitAnimation(this.entityType);
-    } else if (GameManager.Instance.GetEntity(entityType).animator.GetCurrentAnimatorStateInfo(0).IsName("Pressed")) {
-        HitAnimation(entityType);
-    }
-}
-
-public void HitAnimation(EntityType entityType) {
-    Entity target = GameManager.Instance.GetEntity(entityType);
-    if (target != null) {
-        bool isBullet = GameManager.Instance.Shoot();
-        if (isBullet) {
-            target.animator.SetTrigger("Hit");
-        } else {
-            GameManager.Instance.keepTurn = target.animator.GetBool("Is Self");
-            AudioManager.Instance.PlaySoundOnce(AudioManager.Sound.DryFire); 
-            Reset();
-        }
-    }
-}
-                                    </code></pre>
-                                </div>
-                            </section>
-
-                            <!-- Play Button -->
-                            <a href="https://gorott.itch.io/gigils-russian-roulete" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-lg mt-4">
-                                Play Gigil's Russian Roulette
-                            </a>
-
-                            <!-- Close Button -->
-                            <button class="btn btn-primary mt-3" data-bs-dismiss="modal">
-                                <i class="fas fa-times fa-fw"></i> Close Window
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                           
 
 <!-- Styles -->
 <style>
@@ -766,228 +515,7 @@ public void HitAnimation(EntityType entityType) {
         document.getElementById('photoReel').scrollLeft += amount;
     }
 </script>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 3-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">GhostDuster</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <body class="container mt-4">
-
-                                        <section id="code-preview" class="p-4 bg-light rounded shadow">
-                                            <h2 class="mb-3">Explosion Logic in Unity (C#)</h2>
-                                            <p>This script handles explosion logic when an object collides with a specified target.</p>
-                                            <pre><code class="language-csharp">
-                                    public AudioSource Audio;
-                                    public TextMeshProUGUI score;
-                                    public GameObject explosionPrefab;
-                                    public string targetTag = "Ground"; // Set this to the tag you want to check
-                                    private bool hasExploded = false;  // Prevent multiple explosions
-                                    
-                                    private void Start()
-                                    {
-                                        // Find the TextMeshProUGUI component in the scene
-                                        score = GameObject.Find("ScoreText").GetComponent&lt;TextMeshProUGUI&gt;();
-                                    }
-                                    
-                                    private void OnCollisionEnter(Collision collision)
-                                    {
-                                        // Check if the object that touched the cube is tagged as "Player"
-                                        if (!hasExploded && collision.collider.CompareTag(targetTag))
-                                        {
-                                            // Find all objects with the tag "Enemy"
-                                            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                                            // Mark as exploded
-                                            hasExploded = true;
-                                    
-                                            // Trigger the explosion at the collision point
-                                            TriggerExplosion(transform.position);
-                                    
-                                            // Destroy each enemy object and update the score
-                                            foreach (GameObject enemy in enemies)
-                                            {
-                                                Ghost ghostBehavior = enemy.GetComponent&lt;Ghost&gt;();
-                                                if (ghostBehavior != null)
-                                                {
-                                                    ghostBehavior.GhostDeath();
-                                                    ScoreManager.Instance.AddScore(1);
-                                                }
-                                            }
-                                    
-                                            // Update the score text after all enemies are destroyed
-                                            score.text = "Score: " + ScoreManager.Instance.Score.ToString();
-                                    
-                                            Destroy(gameObject, 1f);
-                                            Audio.Play();
-                                        }
-                                    }
-                                    
-                                    public void TriggerExplosion(Vector3 position)
-                                    {
-                                        // Instantiate the explosion prefab at the given position
-                                        Instantiate(explosionPrefab, position, Quaternion.identity);
-                                    }
-                                            </code></pre>
-                                        </section>
-                                        <body class="container mt-4">
-
-                                            <section id="code-preview" class="p-4 bg-light rounded shadow">
-                                                <h2 class="mb-3">Ghost AI in Unity (C#)</h2>
-                                                <p>This script handles the behavior of a ghost AI in Unity, including wandering, following the player, and dying.</p>
-                                                <pre><code class="language-csharp">
-                                        private void Update()
-                                        {
-                                            float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
-                                        
-                                            if (State != GhostState.Death)
-                                            {
-                                                if (distanceToPlayer &lt;= followDistance)
-                                                {
-                                                    State = GhostState.followplayer;
-                                                }
-                                                else if (State != GhostState.wander)
-                                                {
-                                                    State = GhostState.wander;
-                                                }
-                                            }
-                                        
-                                            switch (State)
-                                            {
-                                                case GhostState.idle:
-                                                    GhostIdleState();
-                                                    break;
-                                                case GhostState.wander:
-                                                    GhostWanderState();
-                                                    break;
-                                                case GhostState.followplayer:
-                                                    GhostFollowPlayerState();
-                                                    break;
-                                                case GhostState.Death:
-                                                    GhostDeath();
-                                                    break;
-                                            }
-                                        }
-                                        
-                                        private IEnumerator HandleSpawnIdle()
-                                        {
-                                            State = GhostState.idle; // Begin in idle state
-                                            yield return new WaitForSeconds(spawnIdleTime); // Wait for spawn idle time
-                                            State = GhostState.wander; // Switch to wander state
-                                        }
-                                        
-                                        public void SetReferences(Transform player, TextMeshProUGUI scoreUI)
-                                        {
-                                            Player = player;
-                                            score = scoreUI;
-                                        }
-                                        
-                                        private void GhostIdleState()
-                                        {
-                                            Agent.isStopped = true;
-                                        }
-                                        
-                                        private void GhostWanderState()
-                                        {
-                                            Agent.isStopped = false;
-                                        
-                                            Timer -= Time.deltaTime;
-                                            if (Timer &lt;= 0)
-                                            {
-                                                MoveToRandomPosition();
-                                                Timer = changeTime;
-                                            }
-                                        }
-                                        
-                                        private void GhostFollowPlayerState()
-                                        {
-                                            Agent.isStopped = false;
-                                            Agent.SetDestination(Player.position);
-                                        
-                                            Vector3 directionToPlayer = (Player.position - transform.position).normalized;
-                                            transform.LookAt(new Vector3(Player.position.x, transform.position.y, Player.position.z));
-                                        }
-                                        
-                                        public void GhostDeath()
-                                        {
-                                            if (Agent != null)
-                                            {
-                                                Agent.isStopped = true;
-                                                Debug.Log("agent off");
-                                            }
-                                            else
-                                            {
-                                                Debug.Log("no agent");
-                                            }
-                                        
-                                            if (Animator != null)
-                                            {
-                                                Animator.SetTrigger("Dissolve"); 
-                                            }
-                                        
-                                            Destroy(gameObject, 1f);
-                                        }
-                                        
-                                        private void MoveToRandomPosition()
-                                        {
-                                            Vector3 randomDirection = Random.insideUnitSphere * moveRange;
-                                            randomDirection += transform.position;
-                                        
-                                            NavMeshHit hit;
-                                            if (NavMesh.SamplePosition(randomDirection, out hit, moveRange, NavMesh.AllAreas))
-                                            {
-                                                Agent.SetDestination(hit.position);
-                                            }
-                                        }
-                                        
-                                        private void OnTriggerEnter(Collider other)
-                                        {
-                                            if (other.CompareTag("Player"))
-                                            {
-                                                PlayerHealthUI healthUI = Object.FindFirstObjectByType&lt;PlayerHealthUI&gt;();
-                                        
-                                                if (healthUI != null)
-                                                {
-                                                    healthUI.TakeDamage(1);
-                                                }
-                                                Destroy(gameObject);
-                                            }
-                                        
-                                            if (other.CompareTag("Bullet"))
-                                            {
-                                                if (ScoreManager.Instance != null)
-                                                {
-                                                    ScoreManager.Instance.AddScore(1);
-                                        
-                                                    if (score != null)
-                                                    {
-                                                        score.text = "Score: " + ScoreManager.Instance.Score;
-                                                    }
-                                                }
-                                        
-                                                State = GhostState.Death;
-                                            }
-                                        }
-                                                </code></pre>
-                                            </section>
+                       
                                     <!-- Portfolio Modal - Image-->
                                     <img class="img-fluid rounded mb-5" src="assets/img/portfolio/Ghost.png" alt="..." />
                                     <img src="assets/img/portfolio/Ghostgame.png" alt="Screenshot 1" class="img-fluid rounded">
