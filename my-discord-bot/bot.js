@@ -38,18 +38,20 @@ client.on('messageCreate', async message => {
 
         if (!voiceChannel) return message.channel.send('No active voice channels found.');
 
-        const files = fs.readdirSync('./sounds').filter(file => file.endsWith('.opus'));
+        const files = fs.readdirSync('./sounds').filter(file => file.endsWith('.mp3') || file.endsWith('.opus'));
+        if (files.length === 0) return message.channel.send('No sound files found in /sounds.');
         if (files.length === 0) return message.channel.send('No .opus files found in /sounds.');
 
         const randomSound = files[Math.floor(Math.random() * files.length)];
         const resource = createAudioResource(path.join('./sounds', randomSound));
         const player = createAudioPlayer();
 
-        const connection = joinVoiceChannel({
-            channelId: voiceChannel.id,
-            guildId: voiceChannel.guild.id,
-            adapterCreator: voiceChannel.guild.voiceAdapterCreator
-        });
+       const connection = joinVoiceChannel({
+    channelId: voiceChannel.id,
+    guildId: voiceChannel.guild.id,
+    adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+    selfDeaf: false // <---- THIS disables deafening
+});
 
         connection.subscribe(player);
         player.play(resource);
@@ -64,4 +66,4 @@ client.on('messageCreate', async message => {
     }
 });
 
-client.login('MTM2NzA1NTU0MDQ3NTQwMDI2Mw.Gihasd.Ll7Dolod1JhAj2nVnywx97ofHBAHyzOaFOLznY');
+client.login('');

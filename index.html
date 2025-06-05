@@ -23,7 +23,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    
                 </ul>
             </div>
         </div>
@@ -43,125 +42,129 @@
 
             <!-- Game Area -->
             <div class="text-white w-100 mt-3">
-                <!-- USE MOUSE Text -->
                 <div class="text-center mb-2">
                     <span style="font-family: 'Patrick Hand', cursive; font-size: 26px;">USE MOUSE TO MOVE LEFT PEDDLE</span>
                 </div>
 
-                <!-- Score Counter -->
                 <div class="text-center mb-2">
                     <span id="scoreBoard" style="font-size: 24px; font-weight: bold;">Player: 0 | AI: 0</span>
                 </div>
 
-                <!-- Pong Game -->
                 <div class="d-flex justify-content-center">
                     <canvas id="gameCanvas" width="800" height="500" style="border: 3px solid white; max-width: 100%; height: auto;"></canvas>
+                </div>
+
+                <!-- Difficulty Slider -->
+                <div class="text-center mt-3">
+                    <label for="difficultySlider">Difficulty:</label>
+                    <input type="range" id="difficultySlider" min="1" max="10" value="5">
+                    <span id="difficultyLabel">5</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Pong Game Script -->
+    <!-- Game Script -->
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-    
+
         let playerY = canvas.height / 2 - 40;
         let aiY = canvas.height / 2 - 40;
         let ballX = canvas.width / 2;
         let ballY = canvas.height / 2;
         let ballSpeedX = 4;
         let ballSpeedY = 4;
-    
+
         let playerScore = 0;
         let aiScore = 0;
-    
+
         const scoreBoard = document.getElementById('scoreBoard');
-    
-        canvas.addEventListener('mousemove', (e) => 
-        {
+        const difficultySlider = document.getElementById('difficultySlider');
+        const difficultyLabel = document.getElementById('difficultyLabel');
+
+        let trackingSpeed = 0.15;
+        let reactionChance = 0.45;
+
+        function updateDifficulty() {
+            const difficulty = parseInt(difficultySlider.value);
+            difficultyLabel.textContent = difficulty;
+
+            trackingSpeed = 0.05 + difficulty * 0.02;       // 0.07 - 0.25
+            reactionChance = 0.1 + difficulty * 0.08;       // 0.18 - 0.90
+        }
+
+        difficultySlider.addEventListener('input', updateDifficulty);
+        updateDifficulty();
+
+        canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             playerY = e.clientY - rect.top - 40;
         });
-    
-        function drawRect(x, y, w, h, color) 
-        {
+
+        function drawRect(x, y, w, h, color) {
             ctx.fillStyle = color;
             ctx.fillRect(x, y, w, h);
         }
-    
-        function drawBall(x, y, r, color) 
-        {
+
+        function drawBall(x, y, r, color) {
             ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(x, y, r, 0, Math.PI * 2);
             ctx.fill();
         }
-    
-        function resetBall(scoredBy) 
-        {
+
+        function resetBall(scoredBy) {
             if (scoredBy === 'player') playerScore++;
             if (scoredBy === 'ai') aiScore++;
-    
             scoreBoard.textContent = `Player: ${playerScore} | AI: ${aiScore}`;
-    
             ballX = canvas.width / 2;
             ballY = canvas.height / 2;
             ballSpeedX = -ballSpeedX;
             ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
         }
-    
-        function updateGame() 
-        {
+
+        function updateGame() {
             ballX += ballSpeedX;
             ballY += ballSpeedY;
-    
-            // aabb collision 
-            if (ballY < 0 || ballY > canvas.height) ballSpeedY = -ballSpeedY;
-    
-            // Player paddle
+
+            if (ballY < 0 || ballY > canvas.height) {
+                ballSpeedY = -ballSpeedY;
+            }
+
             if (ballX < 20 && ballY > playerY && ballY < playerY + 80) {
                 ballSpeedX = -ballSpeedX;
             }
-    
-            // AI paddle
+
             if (ballX > canvas.width - 30 && ballY > aiY && ballY < aiY + 80) {
                 ballSpeedX = -ballSpeedX;
             }
-    
-            // AI logica
-            const aiCenter = aiY + 40;
-            const targetY = ballY - 40;
-            const trackingSpeed = 0.15; // snelheid van ai
-            const reactionChance = 0.45; // kans dat de ai reageert
-    
+
             if (Math.random() < reactionChance && ballX > canvas.width / 2) {
-                aiY += (targetY - aiY) * trackingSpeed;
+                aiY += (ballY - 40 - aiY) * trackingSpeed;
             }
-    
-            // Score
+
             if (ballX < 0) resetBall('ai');
             if (ballX > canvas.width) resetBall('player');
         }
-    
-        function drawGame() 
-        {
+
+        function drawGame() {
             drawRect(0, 0, canvas.width, canvas.height, "black");
             drawRect(10, playerY, 10, 80, "white");
             drawRect(canvas.width - 20, aiY, 10, 80, "white");
             drawBall(ballX, ballY, 5, "white");
         }
-    
-        function gameLoop() 
-        {
 
+        function gameLoop() {
             updateGame();
             drawGame();
             requestAnimationFrame(gameLoop);
         }
-    
+
         gameLoop();
     </script>
+</body>
+
 </html>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
