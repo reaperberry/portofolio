@@ -136,29 +136,183 @@
     </div>
 
     <!-- Second Video Section -->
-    <div class="code-video-container">
-      <div>
-        <div class="header-section bg-purple">final version</div>
-        <h3 class="text-center mt-3">Improved Gameplay and Visuals</h3>
-        <div class="d-flex flex-row align-items-center">
-          <div class="flex-shrink-0" style="flex: 1;">
-            <div class="ratio ratio-16x9">
-              <iframe src="https://www.youtube.com/embed/ILI59qZsEZ4" title="NightRacer Second Video" allowfullscreen></iframe>
-            </div>
-          </div>
-          <div class="flex-grow-1 ms-3 p-3" style="flex: 1; background-color: #34495e; border-radius: 1rem; padding-top: 2rem; padding-bottom: 2rem;">
-            <p>Dit is een latere versie van het spel waarin we verbeterde mechanics en visuals hebben geïmplementeerd. Het toont de vooruitgang die we hebben geboekt na de eerste versie.</p>
-          </div>
+<div class="code-video-container">
+  <div>
+    <div class="header-section bg-purple">final version</div>
+    <h3 class="text-center mt-3">Improved Gameplay and Visuals</h3>
+    <div class="d-flex flex-row align-items-center">
+      <div class="flex-shrink-0" style="flex: 1;">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/ILI59qZsEZ4" title="NightRacer Second Video" allowfullscreen></iframe>
         </div>
       </div>
-    </div>
-
-    <div class="text-center mt-4">
-      <a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" class="btn btn-success">
-        <i class="fas fa-gamepad"></i> Play NightRacer
-      </a>
+      <div class="flex-grow-1 ms-3 p-3" style="flex: 1; background-color: #34495e; border-radius: 1rem; padding-top: 2rem; padding-bottom: 2rem;">
+        <p>Dit is een latere versie van het spel waarin we verbeterde mechanics en visuals hebben geïmplementeerd. Het toont de vooruitgang die we hebben geboekt na de eerste versie.</p>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- Extra Info Columns START -->
+<div class="code-video-container">
+  <div>
+    <div class="header-section">Gameplay Mechanics</div>
+    <p>
+      NightRacer bevat een verscheidenheid aan gameplay-elementen zoals driften, snelheidsboosts, checkpoints en realtime lap timing. De besturing is ontworpen om responsief aan te voelen, met ondersteuning voor keyboard en controller.
+    </p>
+    <p>
+      De raceauto’s maken gebruik van Unity’s physics engine met aangepaste handling-scriptjes die zorgen voor een soepel rijgevoel. We hebben ook gewerkt met colliders en raycasting om botsingen en off-track gedrag correct af te handelen.
+    </p>
+  </div>
+
+  <div>
+    <div class="header-section">Teamwork & Workflow</div>
+    <p>
+      Tijdens het project werkten we met een groep van zes studenten. We gebruikten een Trello-bord voor taakverdeling, GitHub voor versiebeheer, en hielden wekelijks playtests om feedback te verzamelen.
+    </p>
+    <p>
+      Ikzelf focuste me vooral op gameplayprogrammeur-taken, terwijl andere teamleden zich richtten op UI, sound design, level art en game design. Dankzij duidelijke communicatie konden we in korte tijd een complete en speelbare ervaring afleveren.
+    </p>
+  </div>
+</div>
+<!-- Extra Info Columns END -->
+
+<!-- Code Showcase START -->
+<div class="code-video-container">
+  <div>
+    <div class="header-section">Code Showcase</div>
+    <p>Hieronder zie je een voorbeeld van mijn C# script voor voertuigbesturing in Unity:</p>
+
+    <!-- Collapse Button -->
+    <p class="text-center">
+      <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#carCodeExample" aria-expanded="false" aria-controls="carCodeExample">
+        Toon Code
+      </button>
+    </p>
+
+    <!-- Collapsible Code Block -->
+    <div class="collapse" id="carCodeExample">
+      <pre><code>
+public class CarController : MonoBehaviour {
+    
+
+    [SerializeField] WheelCollider frontRight;
+    [SerializeField] WheelCollider frontLeft;
+    [SerializeField] WheelCollider backRight;
+    [SerializeField] WheelCollider backLeft;
+
+    //[SerializeField] Transform frontRightTransform;
+    //[SerializeField] Transform frontLeftTransform;
+    //[SerializeField] Transform backRightTransform;
+    //[SerializeField] Transform backLeftTransform;
+
+    [SerializeField] private TMP_Text speedText;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private CountDownTimer countDownTimer;
+
+    // Use Input Manager in Unity to see which Input to type
+    [SerializeField] private string inputNameHorizontal;
+    [SerializeField] private string inputNameVertical;
+    [SerializeField] private string inputBrake;
+
+    // Reference to the FinishLineChecker object
+    public FinishlineChecker finishLineChecker;
+
+    public float acceleration = 500f;
+    public float brakingForce = 300f;
+    public float maxTurnAngle = 15f;
+    public float DownForceValue = 5000f;
+
+    private float currentAcceleration = 0f;
+    private float currentBrakeForce = 0f;
+    private float currentTurnAngle = 0f;
+
+    private void Update() {
+        // This is a m/s to km/h conversion
+        speedText.text = (rb.velocity.magnitude * 2.23693629f).ToString("0") + (" kmph");
+    }
+
+    private void FixedUpdate() {
+        if (countDownTimer != null && countDownTimer.currentTime <= 0) {
+            // Get forward/reverse acceleration from vertical axis (W and S)
+            currentAcceleration = acceleration * Input.GetAxis(inputNameVertical);
+
+            // Press Space to brake
+            if (Input.GetButton(inputBrake))
+                currentBrakeForce = brakingForce;
+            else
+                currentBrakeForce = 0;
+
+            // Apply acceleration to front wheels
+            ApplyAcceleration();
+
+            // Apply brakes to all wheels
+            ApplyBrakes();
+
+            // Take care of turning
+            currentTurnAngle = maxTurnAngle * Input.GetAxis(inputNameHorizontal);
+            frontLeft.steerAngle = currentTurnAngle;
+            frontRight.steerAngle = currentTurnAngle;
+
+
+            AddDownForce();
+        }
+    }
+
+    private void ApplyAcceleration() {
+        frontRight.motorTorque = currentAcceleration;
+        frontLeft.motorTorque = currentAcceleration;
+    }
+
+    private void ApplyBrakes() {
+        frontRight.brakeTorque = currentBrakeForce;
+        frontLeft.brakeTorque = currentBrakeForce;
+        backRight.brakeTorque = currentBrakeForce;
+        backLeft.brakeTorque = currentBrakeForce;
+    }
+
+
+    
+
+   private void AddDownForce()
+    {
+        rb.AddForce(-transform.up * DownForceValue * rb.velocity.magnitude);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            // Get the car's name or identifier
+            string carName = gameObject.name; 
+
+            // Get the current race time or some time to represent the finish time
+            float finishTime = Time.time;
+
+            // Call the FinishLineChecker method to register the car's finish
+            finishLineChecker.ParticipantCrossedFinishLine(carName, finishTime);
+        }
+    }
+
+}
+      </code></pre>
+    </div>
+  </div>
+
+  <div>
+    <div class="header-section">Waarom deze aanpak?</div>
+    <p>
+      dit was het eerste keer dat we met voertuigbesturing werkten, dus we hebben gekozen voor een eenvoudige aanpak met Unity’s WheelColliders. Dit maakt het makkelijker om realistische physics te implementeren zonder alles zelf te hoeven coderen. we hebben ook veel zitten tweaken met de acceleratie van de auto omdat de car collider zichzelf ervan hielt om om te vallen bij het draaien van de auto.
+    </p>
+  </div>
+</div>
+<!-- Code Showcase END -->
+
+<div class="text-center mt-4">
+  <a href="https://reaper-youri.itch.io/cosmic-cat" target="_blank" class="btn btn-success">
+    <i class="fas fa-gamepad"></i> Play NightRacer
+  </a>
+</div>
 
   <script>
     function scrollReel(amount) {
