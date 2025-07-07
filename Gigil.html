@@ -1,183 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gigil's Russian Roulette</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body {
-            background-color: #4d4141;
-            color: #333;
-            font-family: Arial, sans-serif;
-            padding-top: 60px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-        .player-container {
-            max-width: 800px; /* Match the video size */
-            margin: auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        video {
-            width: 100%;
-            max-width: 800px; /* Increased max-width for larger video */
-            border-radius: 8px;
-        }
-        .photo-reel-container {
-            overflow-x: auto;
-            white-space: nowrap;
-            scroll-behavior: smooth;
-            display: flex;
-            gap: 10px;
-            padding: 10px;
-        }
-        .photo-reel-container img {
-            height: 200px;
-            border-radius: 10px;
-        }
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .scroll-left {
-            left: 10px;
-        }
-        .scroll-right {
-            right: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gigil's Russian Roulette</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .project-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .project-header img {
+      max-width: 150px;
+      border-radius: 10px;
+    }
+    .video-wrapper {
+      background-color: #2c2c3e;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .code-block {
+      margin-bottom: 1.5rem;
+    }
+    .accordion-button {
+      background-color: #3a3a4d;
+      color: #fff;
+    }
+    .accordion-button:focus {
+      box-shadow: none;
+    }
+    .accordion-body {
+      background-color: #2c2c3e;
+    }
+    pre {
+      background-color: #1e1e2f;
+      color: #00ff99;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container text-center">
-        <h1 class="text-secondary text-uppercase mb-3">Gigil's Russian Roulette</h1>
-        
-        <!-- Icon Divider -->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-
-        <img class="img-fluid rounded mb-4" src="assets/img/portfolio/Gigil.png" alt="Gigil's Russian Roulette">
-
-        <p class="mb-4" style="color: white;">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
-
-        <!-- Video Player -->
-        <div class="player-container">
-            <video id="video" src="assets/img/portfolio/gigilsdeath.mp4" controls>
-                Your browser does not support the video tag.
-            </video>
-            
-            <div class="controls mt-2">
-                <button id="playPauseBtn" class="btn btn-primary">Play</button>
-                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
-                <button id="fullscreenBtn" class="btn btn-secondary">Fullscreen</button>
-            </div>
-            
-            <input type="range" id="seekBar" class="form-range mt-2" min="0" value="0">
-            
-            <div class="d-flex justify-content-between align-items-center mt-2">
-                <label for="volumeControl">Volume:</label>
-                <input type="range" id="volumeControl" class="form-range w-50" min="0" max="1" step="0.1" value="1">
-            </div>
-        </div>
-
-        <!-- Photo Reel -->
-        <div class="position-relative mt-4">
-            <button class="scroll-btn scroll-left" onclick="scrollReel(-300)">&#10094;</button>
-            <div class="photo-reel-container d-flex overflow-x-auto gap-3 p-2" id="photoReel">
-                <img src="assets/img/portfolio/Gigil1.png" alt="Screenshot 1" class="img-fluid rounded">
-                <img src="assets/img/portfolio/Gigil2.png" alt="Screenshot 2" class="img-fluid rounded">
-                <img src="assets/img/portfolio/gigil3.png" alt="Screenshot 3" class="img-fluid rounded">
-            </div>
-            <button class="scroll-btn scroll-right" onclick="scrollReel(300)">&#10095;</button>
-        </div>
-
-        <!-- Unity Code Section -->
-        <section id="unity-code" class="p-4 bg-light rounded shadow mt-4">
-            <h3 class="mb-3">Informatie over het project</h3>
-            <p>Wij hadden voor dit project 8 weken voor met de uitdaging dat we het met webGL op itch.io zetten.
-            <br>Het thema was instantly hooked dus wij dachten aan een snelle Russian Roulette game</p>
-            </p>
-        </section>
-
-        <!-- Play Button -->
-        <a href="https://gorott.itch.io/gigils-russian-roulete" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-lg mt-4">
-            Play Gigil's Russian Roulette
-        </a>
+  <div class="container">
+    <!-- Header -->
+    <div class="project-header">
+      <img src="assets/img/portfolio/Gigil.png" alt="Gigil Logo" />
+      <h1 class="mt-3">Gigil's Russian Roulette</h1>
+      <p class="lead text-muted">Een gamejam game over snelheid, spanning, en russische roulette.</p>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        function scrollReel(amount) {
-            document.getElementById('photoReel').scrollLeft += amount;
+    <!-- Video Showcase -->
+    <div class="video-wrapper">
+      <video src="assets/img/portfolio/gigilsdeath.mp4" controls></video>
+    </div>
+
+    <!-- Project Info -->
+    <div class="mb-4">
+      <h2>Projectinformatie</h2>
+      <p>Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
+      <p>We hadden 8 weken en het moest speelbaar zijn via WebGL op itch.io. Het thema was <em>"instantly hooked"</em>, dus we dachten aan een snelle Russian Roulette game waarin de speler direct op scherp staat.</p>
+    </div>
+
+    <!-- Code Examples -->
+    <h2 class="mb-3">Belangrijke Code Voorbeelden</h2>
+    <div class="accordion" id="codeAccordion">
+
+      <!-- Gun Firing Logic -->
+      <div class="accordion-item code-block">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#codeOne">
+            turn mechanic
+          </button>
+        </h2>
+        <div id="codeOne" class="accordion-collapse collapse" data-bs-parent="#codeAccordion">
+          <div class="accordion-body">
+            <pre><code>using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public abstract class Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+{
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected EntityType entityType;
+    [SerializeField] private int Health;
+    [SerializeField] private HealthUI healthDisplay;
+    [SerializeField] private SpeechBubble speechBubble;
+    public EntityType EntityType => entityType;
+    public Animator Animator => animator;
+    public bool hasPicked = false;
+    public bool canShoot = false;
+
+
+    public void Update()
+    {
+    }
+    protected void Awake()
+    {
+        animator = GetComponent<Animator>();
+        animator.Rebind();
+        UpdateHealthDisplay();
+        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+    }
+    
+    public void Shoot(EntityType entityType)
+    {
+        hasPicked = true;
+        Entity target = GameManager.Instance.GetEntity(entityType);
+        if (target != null)
+        {
+            target.animator.SetTrigger("Pressed");
+            if (entityType == this.entityType) target.animator.SetBool("Is Self", true);
+            else animator.SetTrigger("Aim At Target");
+            ShouldTalk();
+        }
+    }
+    
+    public void HitTarget(EntityType entityType)
+    {
+        if (animator.GetBool("Is Self") && animator.GetBool("Pressed"))
+        {
+            HitAnimation(this.entityType);
+        }
+        else if (GameManager.Instance.GetEntity(entityType).animator.GetCurrentAnimatorStateInfo(0).IsName("Pressed"))
+        {
+            HitAnimation(entityType);
+        }
+    }
+    
+    public void HitAnimation(EntityType entityType)
+    {
+        Entity target = GameManager.Instance.GetEntity(entityType);
+        if (target != null)
+        {
+            bool isBullet = GameManager.Instance.Shoot();
+            if (isBullet)
+            {
+                target.animator.SetTrigger("Hit");
+            }
+            else
+            {
+                GameManager.Instance.keepTurn = target.animator.GetBool("Is Self");
+                AudioManager.Instance.PlaySoundOnce(AudioManager.Sound.DryFire); 
+                Reset();
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        GameManager.Instance.ResetAllEntities();
+        GameManager.Instance.StartTurn();
+    }
+
+
+    public bool Die()
+    {
+        Health--;
+        UpdateHealthDisplay();
+        if (Health == 0)
+        {
+            GameManager.Instance.EndRound(this.entityType);
+            return true;
         }
 
-        const video = document.getElementById('video');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const seekBar = document.getElementById('seekBar');
-        const currentTimeEl = document.getElementById('currentTime');
-        const durationEl = document.getElementById('duration');
-        const volumeControl = document.getElementById('volumeControl');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        return false;
+    }
+    
+    public void Heal(int amount)
+    {
+        Health += amount;
+        UpdateHealthDisplay();
+    }
 
-        playPauseBtn.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-                playPauseBtn.textContent = 'Pause';
-            } else {
-                video.pause();
-                playPauseBtn.textContent = 'Play';
-            }
-        });
-
-        video.addEventListener('timeupdate', () => {
-            seekBar.value = (video.currentTime / video.duration) * 100;
-            currentTimeEl.textContent = formatTime(video.currentTime);
-        });
-
-        video.addEventListener('loadedmetadata', () => {
-            durationEl.textContent = formatTime(video.duration);
-        });
-
-        seekBar.addEventListener('input', () => {
-            video.currentTime = (seekBar.value / 100) * video.duration;
-        });
-
-        volumeControl.addEventListener('input', () => {
-            video.volume = volumeControl.value;
-        });
-
-        fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                video.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        });
-
-        function formatTime(time) {
-            let minutes = Math.floor(time / 60);
-            let seconds = Math.floor(time % 60);
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    private void UpdateHealthDisplay()
+    {
+        if (healthDisplay != null)
+        {
+            healthDisplay.UpdateHealth(Health);
         }
-    </script>
+    }
+
+    public void ShouldTalk()
+    {
+        if (UnityEngine.Random.Range(0, 10) == 0)
+        {
+            animator.SetBool("Talking", true);
+        }
+    }
+    
+    public void StopTalking()
+    {
+        animator.SetBool("Talking", false);
+    }
+    
+    public void Talk(TriggerType trigger)
+    {
+        speechBubble.RandomSpeech(trigger);
+    }
+    
+    public void ShotSound()
+    {
+        AudioManager.Instance.PlaySoundOnce(AudioManager.Sound.Fire);
+    }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked && GameManager.Instance.GetEntity(EntityType.Player).canShoot)
+        {
+            GameManager.Instance.GetEntity(EntityType.Player).Shoot(entityType);
+            EventManager.TriggerEvent("HideInventory", new Dictionary<string, object>());
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked)
+        {
+            animator.SetTrigger("Highlighted");
+            if (entityType == GameManager.Instance.CurrentTurn && entityType == EntityType.Player)
+            {
+                animator.SetBool("Is Self", true);
+            }
+            else
+            {
+                GameManager.Instance.GetEntity(entityType == EntityType.Enemy ? EntityType.Player : EntityType.Enemy).animator.SetTrigger("Aim At Target");
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked)
+        {
+            animator.SetTrigger("Normal");
+            if (entityType == GameManager.Instance.CurrentTurn && entityType == EntityType.Player)
+            {
+                animator.SetBool("Is Self", false);
+            }
+            else
+            {
+                GameManager.Instance.GetEntity(entityType == EntityType.Enemy ? EntityType.Player : EntityType.Enemy).animator.SetTrigger("Normal");
+            }
+            animator.SetBool("Talking", false);
+        }
+    }
+}
+
+public enum EntityType
+{
+    Player,
+    Enemy
+}
+</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Shake Feedback -->
+      <div class="accordion-item code-block">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#codeTwo">
+            Enemy logica
+          </button>
+        </h2>
+        <div id="codeTwo" class="accordion-collapse collapse" data-bs-parent="#codeAccordion">
+          <div class="accordion-body">
+            <pre><code>using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class EnemyBrain : Entity
+{
+    public static EnemyBrain Instance { get; private set; }
+    private Coroutine thinkCoroutine;
+    
+    private void Awake()
+    {
+        Instance = this;
+        base.Awake();
+    }
+
+    public void Think()
+    {
+        if (thinkCoroutine == null)
+        {
+            thinkCoroutine = StartCoroutine(ThinkCoroutine());
+        }
+    }
+
+    public void StopThinking()
+    {
+        if (thinkCoroutine != null)
+        {
+            StopCoroutine(thinkCoroutine);
+            thinkCoroutine = null;
+        }
+    }
+    
+    private IEnumerator ThinkCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        int random = Random.Range(0, 2);
+        Debug.Log(random);
+        if (random == 0)
+        {
+            Shoot(EntityType.Player);
+        }
+        else
+        {
+            Shoot(EntityType.Enemy);
+        }
+        thinkCoroutine = null;
+    }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Play Now Button -->
+    <div class="text-center mt-5">
+      <a href="https://gorott.itch.io/gigils-russian-roulete" target="_blank" class="btn btn-success btn-lg">
+        <i class="fas fa-play me-2"></i>Speel Gigil's Russian Roulette
+      </a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
