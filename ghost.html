@@ -72,6 +72,38 @@
       margin-top: 10px;
     }
 
+    pre {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+
+    .game-info {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #ddd;
+      padding: 60px 15px 30px;
+    }
+    .game-info h2 {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    .game-info p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+    .game-info ul {
+      padding: 0;
+      list-style: none;
+    }
+    .game-info ul li {
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
     .footer {
       text-align: center;
       padding: 40px 20px;
@@ -80,16 +112,38 @@
   </style>
 </head>
 <body>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Back to Main Page</a>
+    </div>
+  </nav>
+  <!-- Game Info Section -->
+  <section class="game-info text-center">
+    <div class="container">
+      <h2>About the Game</h2>
+      <p class="mt-3">Ghostduster is een arcade style ghost shooter</p>
+      <ul class="mt-4">
+        <li><strong>Genre:</strong> Arcade Shooter</li>
+        <li><strong>Engine:</strong> Unity</li>
+        <li><strong>Tools:</strong> C#, NavMesh, ScriptableObjects</li>
+        <li><strong>Platform:</strong> PC</li>
+      </ul>
+    </div>
+  </section>
 
+  <!-- Title Section -->
   <div class="gallery-header">
     <h1>GhostDuster</h1>
-    <p>Photos, GIFs and videos showing how I built my Unreal Engine gameplay systems</p>
+    <p>een paar mechanics waar ik aan gewerkt heb</p>
   </div>
 
+  <!-- Media Cards -->
   <div class="container pb-5">
     <div class="row g-4">
 
-      <!-- Card 1: Video -->
+      <!-- Card 1: Gameplay Video -->
       <div class="col-md-6 col-lg-4">
         <div class="media-card">
           <video controls>
@@ -98,57 +152,196 @@
           </video>
           <div class="media-content">
             <h5>Gameplay</h5>
-            <p>Ghost arcade shooter .</p>
+            <p>Ghost arcade shooter.</p>
             <div class="media-tags">
               <span>AI</span><span>gameplay</span><span>Unity</span>
             </div>
+            
+            <div class="collapse mt-2" id="code0">
+              <pre><code>
+// Example Gameplay Controller snippet
+void Update() {
+    if (Input.GetButton("Fire1")) {
+        Shoot();
+    }
+}
+              </code></pre>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Card 2: GIF -->
+      <!-- Card 2: Firerate Powerup -->
       <div class="col-md-6 col-lg-4">
         <div class="media-card">
-          <img src="assets/img/portfolio/fireratebetter.gif" alt="Zombie Attack">
+          <img src="assets/img/portfolio/fireratebetter.gif" alt="Firerate Powerup">
           <div class="media-content">
-            <h5>Firerate powerup</h5>
-            <p>Met dit powerup kan je voor een bepaald tijd sneller schieten</p>
+            <h5>Firerate Powerup</h5>
+            <p>Met dit powerup kan je voor een bepaald tijd sneller schieten.</p>
             <div class="media-tags">
               <span>powerup</span><span>C#</span>
             </div>
+            <button class="btn btn-sm btn-outline-secondary mt-3" data-bs-toggle="collapse" data-bs-target="#code1">
+              Show Code
+            </button>
+            <div class="collapse mt-2" id="code1">
+              <pre><code>
+using System.Collections;
+using UnityEngine;
+
+public class FireRatePower : MonoBehaviour {
+    public AudioSource Audio;
+    public Guns guns;
+    private float originalFireRate;
+    private MeshRenderer meshRenderer;
+    private BoxCollider boxCollider;
+
+    void Start() {
+        guns = FindObjectOfType<Guns>();
+        if (guns != null) {
+            originalFireRate = guns.fireRate;
+        }
+        meshRenderer = GetComponent<MeshRenderer>();
+        boxCollider = GetComponent<BoxCollider>();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("powercolid") && guns != null) {
+            StartCoroutine(ChangeFireRateAndDisable(0.1f, 5f));
+            Audio.Play();
+            Destroy(gameObject, 7f);
+        }
+    }
+
+    private IEnumerator ChangeFireRateAndDisable(float newFireRate, float duration) {
+        guns.fireRate = newFireRate;
+        if (meshRenderer != null) meshRenderer.enabled = false;
+        if (boxCollider != null) boxCollider.enabled = false;
+        yield return new WaitForSeconds(duration);
+        guns.fireRate = originalFireRate;
+    }
+}
+              </code></pre>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Card 3: Image -->
+      <!-- Card 3: Nuke Powerup -->
       <div class="col-md-6 col-lg-4">
         <div class="media-card">
-          <img src="assets/img/portfolio/immafiremanuke.gif" alt="Behavior Tree Screenshot">
+          <img src="assets/img/portfolio/immafiremanuke.gif" alt="Nuke Powerup">
           <div class="media-content">
             <h5>De nuke powerup</h5>
-            <p>De nuke powerup zorgt ervoor dat alle ghost die er op het moment zijn dood gaan</p>
+            <p>De nuke powerup zorgt ervoor dat alle ghosts die er op het moment zijn dood gaan.</p>
             <div class="media-tags">
               <span>C#</span><span>powerup</span>
             </div>
-          </div>
-        </div>
-      </div>
+            <button class="btn btn-sm btn-outline-secondary mt-3" data-bs-toggle="collapse" data-bs-target="#code2">
+              Show Code
+            </button>
+            <div class="collapse mt-2" id="code2">
+              <pre><code>
+using TMPro;
+using UnityEngine;
 
-      <!-- Card 4: GIF -->
-      <div class="col-md-6 col-lg-4">
-        <div class="media-card">
-          <img src="assets/img/portfolio/powerupspawner.gif" alt="Wave Spawner">
-          <div class="media-content">
-            <h5>Powerup Spawner</h5>
-            <p>Difficulty scales over time based on player performance.</p>
-            <div class="media-tags">
-              <span>C#</span><span>Spawner</span>
+public class Nuke : MonoBehaviour {
+    public AudioSource Audio;
+    [SerializeField] TextMeshProUGUI score;
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("powercolid")) {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in enemies) {
+                Ghost ghostBehavior = enemy.GetComponent<Ghost>();
+                if (ghostBehavior != null) {
+                    ghostBehavior.GhostDeath();
+                }
+            }
+            Destroy(gameObject, 1f);
+            Audio.Play();
+        }
+    }
+}
+              </code></pre>
             </div>
           </div>
         </div>
       </div>
 
-      
+      <!-- Card 4: Powerup Spawner -->
+      <div class="col-md-6 col-lg-4">
+        <div class="media-card">
+          <img src="assets/img/portfolio/powerupspawner.gif" alt="Powerup Spawner">
+          <div class="media-content">
+            <h5>Powerup Spawner</h5>
+            <p>om de zoveel tijd krijg je een powerup om je te helpen, zoals health, een nuke en een sneller schieten</p>
+            <div class="media-tags">
+              <span>C#</span><span>Spawner</span>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary mt-3" data-bs-toggle="collapse" data-bs-target="#code3">
+              Show Code
+            </button>
+            <div class="collapse mt-2" id="code3">
+              <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class PowerupSpawner : MonoBehaviour {
+    public GameObject[] prefabsToSpawn;
+    public Transform[] spawnPoints;
+    public float spawnInterval = 5f;
+    public bool spawnOnStart = true;
+    private Coroutine spawnRoutine;
+
+    void Start() {
+        if (spawnOnStart) {
+            StartSpawning();
+        }
+    }
+
+    public void StartSpawning() {
+        if (spawnRoutine == null) {
+            spawnRoutine = StartCoroutine(SpawnCoroutine());
+        }
+    }
+
+    public void StopSpawning() {
+        if (spawnRoutine != null) {
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
+        }
+    }
+
+    private IEnumerator SpawnCoroutine() {
+        while (true) {
+            SpawnRandomPrefab();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void SpawnRandomPrefab() {
+        if (prefabsToSpawn.Length == 0 || spawnPoints.Length == 0) return;
+        GameObject prefab = prefabsToSpawn[Random.Range(0, prefabsToSpawn.Length)];
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+    }
+}
+              </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Footer -->
+        <footer class="text-center mt-5">
+            <p>© 2025 Youri Wallaart | XR Developer</p>
+            <a href="index.html" class="btn btn-outline-light mt-2">← Back to Portfolio</a>
+        </footer>
+    </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
