@@ -1,563 +1,343 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Freelancer - Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Youri Wallaart - Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      padding-top: 70px;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a3d62, #1e3799);
+      color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      border-bottom: 8px solid #0d6efd;
+      position: relative;
+    }
+    .hero img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  margin-bottom: 1.25rem;
+  border: 4px solid #0d6efd;
+}
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #0d6efd;
+      text-align: center;
+    }
+    .project-highlight {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      background-color: #1f1f1f;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .project-highlight:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .project-highlight img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+    }
+    .project-info {
+      flex: 1;
+      padding: 1rem;
+    }
+    footer {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 2rem;
+    }
+    footer a {
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      margin: 0 1rem;
+    }
+    canvas {
+      border: 3px solid #0d6efd;
+      border-radius: 12px;
+      background: black;
+      display: block;
+      margin: auto;
+      max-width: 100%;
+    }
+  </style>
 </head>
-<body id="page-top">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top">Youri Wallaart</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
-                Menu <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <!-- Masthead -->
-    <header class="masthead bg-primary text-white text-center">
-        <div class="container d-flex flex-column align-items-center">
-            <img class="masthead-avatar mb-4" src="assets/img/portfolio/mooie.JPG" alt="..." />
-            <h1 class="masthead-heading text-uppercase mb-0">Portfolio</h1>
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <p class="masthead-subheading font-weight-light mb-4">GameDeveloper - Gamer</p>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="#home">Youri Wallaart</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#about">Over Mij</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projecten</a></li>
+        <li class="nav-item"><a class="nav-link" href="#game">Mini Game</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-            <!-- Game Area -->
-            <div class="text-white w-100 mt-3">
-                <div class="text-center mb-2">
-                    <span style="font-family: 'Patrick Hand', cursive; font-size: 26px;">USE MOUSE TO MOVE LEFT PEDDLE</span>
-                </div>
+<!-- Hero -->
+<section class="hero" id="home">
+  <div id="particles-js"></div>
+  <img src="assets/img/portfolio/mooie.JPG" alt="Youri Wallaart" />
+  <h1>Youri Wallaart</h1>
+  <p>Game Developer gespecialiseerd in XR, VR en interactieve ervaringen. Ontdek hieronder mijn projecten!</p>
+  <a href="#projects" class="btn btn-primary mt-2">Bekijk Projecten</a>
+</section>
 
-                <div class="text-center mb-2">
-                    <span id="scoreBoard" style="font-size: 24px; font-weight: bold;">Player: 0 | AI: 0</span>
-                </div>
+<!-- About -->
+<section id="about" class="container">
+  <h2 class="section-title">Over Mij</h2>
+  <p>Hallo, ik ben Youri Wallaart, een 19-jarige student XR-ontwikkeling aan het Grafisch Lyceum Utrecht. Ik ben gepassioneerd door het creëren van meeslepende ervaringen en het werken met geavanceerde technologie.</p>
+  <p>Mijn projecten variëren van interactieve games tot innovatieve simulaties, allemaal met focus op gebruikerservaring en betrokkenheid.</p>
+</section>
 
-                <div class="d-flex justify-content-center">
-                    <canvas id="gameCanvas" width="800" height="500" style="border: 3px solid white; max-width: 100%; height: auto;"></canvas>
-                </div>
+<!-- Vaardigheden -->
+<section id="skills" class="container mt-4 mb-5">
+  <h2 class="section-title">Vaardigheden</h2>
+  <div class="row text-center">
+    <div class="col-md-4 mb-3">
+      <i class="fab fa-unity fa-3x text-primary mb-2"></i>
+      <h5 class="text-light">Unity / C#</h5>
+      <p>Ervaren in het bouwen van XR- en VR-projecten met Unity.</p>
+    </div>
+    <div class="col-md-4 mb-3">
+      <i class="fab fa-js-square fa-3x text-warning mb-2"></i>
+      <h5 class="text-light">JavaScript</h5>
+      <p>Gebruik voor web interactie, mini-games en interfaces.</p>
+    </div>
+    <div class="col-md-4 mb-3">
+      <i class="fas fa-cube fa-3x text-danger mb-2"></i>
+      <h5 class="text-light">Unreal Engine</h5>
+      <p>Ontwikkeling van AI, VR gameplay en simulaties via Blueprints.</p>
+    </div>
+  </div>
+</section>
 
-                <!-- Difficulty Slider -->
-                <div class="text-center mt-3">
-                    <label for="difficultySlider">Difficulty:</label>
-                    <input type="range" id="difficultySlider" min="1" max="10" value="5">
-                    <span id="difficultyLabel">5</span>
-                </div>
-            </div>
-        </div>
-    </header>
+<!-- Projects -->
+<section id="projects" class="container">
+  <h2 class="section-title">Projecten</h2>
 
-    <!-- Game Script -->
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+  <!-- VR Games -->
+  <h3 class="text-info mt-5">VR Games</h3>
+  <div class="project-highlight">
+    <img src="assets/img/portfolio/logo.png" alt="Alcemix" />
+    <div class="project-info">
+      <h4>Alcemix (VR Game)</h4>
+      <p>Een meeslepende VR-game gericht op alchemie-mechanieken. Gebouwd met Unity en VR Toolkit.</p>
+      <a href="Alcemix.html" class="btn btn-primary">Bekijk project</a>
+    </div>
+  </div>
+  <div class="project-highlight">
+    <img src="assets/img/portfolio/Ghost.png" alt="Ghost Game" />
+    <div class="project-info">
+      <h4>Ghost (VR Game)</h4>
+      <p>Een stealth-horror VR ervaring met vijandige AI en intense geluidseffecten.</p>
+      <a href="ghost.html" class="btn btn-primary">Bekijk project</a>
+    </div>
+  </div>
 
-        let playerY = canvas.height / 2 - 40;
-        let aiY = canvas.height / 2 - 40;
-        let ballX = canvas.width / 2;
-        let ballY = canvas.height / 2;
-        let ballSpeedX = 4;
-        let ballSpeedY = 4;
+  <!-- 3D Games -->
+  <h3 class="text-info mt-5">3D Games</h3>
+  <div class="project-highlight">
+    <img src="assets/img/portfolio/T_title.png" alt="NightRacer" />
+    <div class="project-info">
+      <h4>NightRacer (3D Game)</h4>
+      <p>Een local splitscreen multiplayer racing game.</p>
+      <a href="NightRacer.html" class="btn btn-primary">Bekijk project</a>
+    </div>
+  </div>
 
-        let playerScore = 0;
-        let aiScore = 0;
+  <!-- Unreal Games -->
+  <h3 class="text-info mt-5">Unreal Games</h3>
+  <div class="project-highlight">
+    <img src="assets/img/portfolio/unreal.png" alt="Unreal Project" />
+    <div class="project-info">
+      <h4>Unreal Project</h4>
+      <p>Een project ontwikkeld met Unreal Engine met gebruik van Blueprint systemen.</p>
+      <a href="unrealproject.html" class="btn btn-primary">Bekijk project</a>
+    </div>
+  </div>
 
-        const scoreBoard = document.getElementById('scoreBoard');
-        const difficultySlider = document.getElementById('difficultySlider');
-        const difficultyLabel = document.getElementById('difficultyLabel');
+  <!-- 2D Games -->
+  <h3 class="text-info mt-5">2D Games</h3>
+  <div class="project-highlight">
+    <img src="assets/img/portfolio/Gigil.png" alt="Gigil" />
+    <div class="project-info">
+      <h4>Gigil's Russian Roulette (Game Jam)</h4>
+      <p>Donkere humor game gemaakt tijdens een game jam met klasgenoten.</p>
+      <a href="Gigil.html" class="btn btn-primary">Bekijk project</a>
+    </div>
+  </div>
 
-        let trackingSpeed = 0.15;
-        let reactionChance = 0.45;
 
-        function updateDifficulty() {
-            const difficulty = parseInt(difficultySlider.value);
-            difficultyLabel.textContent = difficulty;
+</section>
 
-            trackingSpeed = 0.05 + difficulty * 0.02;       // 0.07 - 0.25
-            reactionChance = 0.1 + difficulty * 0.08;       // 0.18 - 0.90
-        }
+<!-- Mini Game -->
+<section id="game" class="container mt-5">
+  <h2 class="section-title">Speel Mijn Mini Game</h2>
+  <p class="text-center">Gebruik de muis om het paddle links te bewegen</p>
+  <p id="scoreBoard" class="text-center fw-bold">Speler: 0 | AI: 0</p>
+  <canvas id="gameCanvas" width="800" height="500"></canvas>
+  <div class="text-center mt-3">
+    <label for="difficultySlider">Moeilijkheid:</label>
+    <input type="range" id="difficultySlider" min="1" max="10" value="5">
+    <span id="difficultyLabel">5</span>
+  </div>
+</section>
 
-        difficultySlider.addEventListener('input', updateDifficulty);
-        updateDifficulty();
+<!-- Footer -->
+<footer id="contact">
+  <p>© 2025 Youri Wallaart. Alle rechten voorbehouden.</p>
+  <div>
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
 
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            playerY = e.clientY - rect.top - 40;
-        });
+<!-- Scripts -->
+<script>
+  tsParticles.load("particles-js", {
+    fullScreen: { enable: false },
+    particles: {
+      number: { value: 80 },
+      size: { value: 3 },
+      move: { enable: true, speed: 1 },
+      links: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4 }
+    },
+    background: { color: "#0a3d62" }
+  });
 
-        function drawRect(x, y, w, h, color) {
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, w, h);
-        }
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  let playerY = canvas.height / 2 - 40;
+  let aiY = canvas.height / 2 - 40;
+  let ballX = canvas.width / 2;
+  let ballY = canvas.height / 2;
+  let ballSpeedX = 4;
+  let ballSpeedY = 4;
+  let playerScore = 0;
+  let aiScore = 0;
+  const scoreBoard = document.getElementById('scoreBoard');
+  const difficultySlider = document.getElementById('difficultySlider');
+  const difficultyLabel = document.getElementById('difficultyLabel');
+  let trackingSpeed = 0.15;
+  let reactionChance = 0.45;
 
-        function drawBall(x, y, r, color) {
-            ctx.fillStyle = color;
-            ctx.beginPath();
-            ctx.arc(x, y, r, 0, Math.PI * 2);
-            ctx.fill();
-        }
+  function updateDifficulty() {
+    const difficulty = parseInt(difficultySlider.value);
+    difficultyLabel.textContent = difficulty;
+    trackingSpeed = 0.05 + difficulty * 0.02;
+    reactionChance = 0.1 + difficulty * 0.08;
+  }
 
-        function resetBall(scoredBy) {
-            if (scoredBy === 'player') playerScore++;
-            if (scoredBy === 'ai') aiScore++;
-            scoreBoard.textContent = `Player: ${playerScore} | AI: ${aiScore}`;
-            ballX = canvas.width / 2;
-            ballY = canvas.height / 2;
-            ballSpeedX = -ballSpeedX;
-            ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
-        }
+  difficultySlider.addEventListener('input', updateDifficulty);
+  updateDifficulty();
 
-        function updateGame() {
-            ballX += ballSpeedX;
-            ballY += ballSpeedY;
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    playerY = e.clientY - rect.top - 40;
+  });
 
-            if (ballY < 0 || ballY > canvas.height) {
-                ballSpeedY = -ballSpeedY;
-            }
+  function drawRect(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+  }
 
-            if (ballX < 20 && ballY > playerY && ballY < playerY + 80) {
-                ballSpeedX = -ballSpeedX;
-            }
+  function drawBall(x, y, r, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
-            if (ballX > canvas.width - 30 && ballY > aiY && ballY < aiY + 80) {
-                ballSpeedX = -ballSpeedX;
-            }
+  function resetBall(scoredBy) {
+    if (scoredBy === 'player') playerScore++;
+    if (scoredBy === 'ai') aiScore++;
+    scoreBoard.textContent = `Speler: ${playerScore} | AI: ${aiScore}`;
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX = -ballSpeedX;
+    ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
+  }
 
-            if (Math.random() < reactionChance && ballX > canvas.width / 2) {
-                aiY += (ballY - 40 - aiY) * trackingSpeed;
-            }
+  function updateGame() {
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+    if (ballY < 0 || ballY > canvas.height) ballSpeedY = -ballSpeedY;
+    if (ballX < 20 && ballY > playerY && ballY < playerY + 80) ballSpeedX = -ballSpeedX;
+    if (ballX > canvas.width - 30 && ballY > aiY && ballY < aiY + 80) ballSpeedX = -ballSpeedX;
+    if (Math.random() < reactionChance && ballX > canvas.width / 2) {
+      aiY += (ballY - 40 - aiY) * trackingSpeed;
+    }
+    if (ballX < 0) resetBall('ai');
+    if (ballX > canvas.width) resetBall('player');
+  }
 
-            if (ballX < 0) resetBall('ai');
-            if (ballX > canvas.width) resetBall('player');
-        }
+  function drawGame() {
+    drawRect(0, 0, canvas.width, canvas.height, "black");
+    drawRect(10, playerY, 10, 80, "#0d6efd");
+    drawRect(canvas.width - 20, aiY, 10, 80, "#0d6efd");
+    drawBall(ballX, ballY, 6, "#0d6efd");
+  }
 
-        function drawGame() {
-            drawRect(0, 0, canvas.width, canvas.height, "black");
-            drawRect(10, playerY, 10, 80, "white");
-            drawRect(canvas.width - 20, aiY, 10, 80, "white");
-            drawBall(ballX, ballY, 5, "white");
-        }
+  function gameLoop() {
+    updateGame();
+    drawGame();
+    requestAnimationFrame(gameLoop);
+  }
 
-        function gameLoop() {
-            updateGame();
-            drawGame();
-            requestAnimationFrame(gameLoop);
-        }
-
-        gameLoop();
-    </script>
+  gameLoop();
+</script>
 </body>
-
-</html>
-        <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="portfolio">
-            <div class="container">
-                <!-- Game Projects Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Game Projects</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-gamepad"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Game Projects Grid Items-->
-                <div class="row justify-content-center">
-                    <!-- Game Project 5 -->
-<div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-    <a href="Alcemix.html" class="portfolio-item mx-auto">
-        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-            </div>
-        </div>
-        <img class="img-fluid" src="assets/img/portfolio/logo.png" alt="Game Project 5 - New Game" />
-    </a>
-</div>
-                    <!-- Game Project 1-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <a href="NightRacer.html" class="portfolio-item mx-auto">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/T_title.png" alt="Game Project 4 - Space Adventures" />
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-    <a href="ghost.html" class="text-decoration-none">
-        <div class="portfolio-item mx-auto">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                <div class="portfolio-item-caption-content text-center text-white">
-                    <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="assets/img/portfolio/Ghost.png" alt="Game Project 3 - Circus Battle" />
-        </div>
-    </a>
-</div>
-                    <!-- Game Project 2-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <a href="Gigil.html" class="portfolio-item mx-auto">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/Gigil.png" alt="Game Project 4 - Space Adventures" />
-                        </a>
-                    </div>
-                   <!-- Game Project 3 -->
-
-                    <!-- Game Project 4-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <a href="anxious party.html" class="portfolio-item mx-auto">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white">
-                                    <i class="fas fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/unreal.png" alt="Game Project 4 - Space Adventures" />
-                        </a>
-                    </div>
-
-                
-                    
-        </section>
-        <!-- About Section-->
-        <section class="" id="about">
-            <div class="container">
-                <!-- About Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-white">About Me</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- About Section Content-->
-                <html lang="en">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Programming Skills</title>
-                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-                    </head>
-                    <body class="container mt-5">
-                    
-                        <h2 class="mb-4">Programming Skills</h2>
-                    
-                        <div class="mb-3">
-                            <p>c# <span class="float-end"></span></p>
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    
-                        <div class="mb-3">
-                            <p>JavaScript <span class="float-end"></span></p>
-                            <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    
-                        
-                    
-                        <div class="mb-3">
-                            <p>Unreal Engine (Blueprint) <span class="float-end"></span></p>
-                            <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-                    </body>
-                    </html>
-                <div class="row">
-                    <div class="col-lg-6 ms-auto">
-                        <p class="lead">Hallo, ik ben Youri Wallaart, een 19-jarige student XR-ontwikkeling aan het Grafisch Lyceum Utrecht. Ik ben gepassioneerd door het creëren van meeslepende ervaringen en het werken met geavanceerde technologie in de wereld van extended reality. Tijdens mijn studie heb ik waardevolle vaardigheden en praktijkervaring opgedaan die me hebben gevormd tot de ontwikkelaar die ik vandaag de dag ben. Deze portfolio toont een aantal van mijn interessante projecten die mijn reis en de vaardigheden die ik gaandeweg heb ontwikkeld, weerspiegelen.
-                        </p>
-                    </div>
-                    <div class="col-lg-6 me-auto">
-                        <p class="lead">Ik ben gespecialiseerd in XR-ontwikkeling en verken zowel virtual reality (VR) als augmented reality (AR). Mijn projecten variëren van interactieve games tot innovatieve simulaties, allemaal gemaakt met een focus op gebruikerservaring en betrokkenheid.</p>
-                    </div>
-                </div>
-               
-        
-       
-       
-
-<!-- JavaScript Function -->
-<script>
-    function toggleCode(id) {
-        const codeContainer = document.getElementById(id);
-        const button = document.querySelector(`button[onclick="toggleCode('${id}')"]`);
-        if (codeContainer.classList.contains("show")) {
-            codeContainer.classList.remove("show");
-            button.textContent = "Show Code";
-        } else {
-            codeContainer.classList.add("show");
-            button.textContent = "Hide Code";
-        }
-    }
-</script>
-
-
-
-<!-- Styles -->
-<style>
-    .photo-reel-container {
-        overflow-x: auto;
-        white-space: nowrap;
-        scroll-behavior: smooth;
-        display: flex;
-        gap: 10px;
-        padding: 10px;
-    }
-    .photo-reel-container img {
-        height: 200px;
-        border-radius: 10px;
-    }
-    .scroll-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 10;
-    }
-    .scroll-left {
-        left: 10px;
-    }
-    .scroll-right {
-        right: 10px;
-    }
-</style>
-
-<!-- JavaScript -->
-<script>
-    function scrollReel(amount) {
-        document.getElementById('photoReel').scrollLeft += amount;
-    }
-</script>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       <!-- Portfolio Modal 2 -->
-<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center pb-5">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <!-- Portfolio Modal - Title -->
-                            <h2 class="portfolio-modal-title text-secondary text-uppercase mb-3">Gigil's Russian Roulette</h2>
-
-                            <!-- Icon Divider -->
-                            <div class="divider-custom">
-                                <div class="divider-custom-line"></div>
-                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                <div class="divider-custom-line"></div>
-                            </div>
-
-                            <!-- Portfolio Modal - Image -->
-                            <img class="img-fluid rounded mb-4" src="assets/img/portfolio/Gigil.png" alt="Gigil's Russian Roulette" />
-
-                            <!-- Portfolio Modal - Text -->
-                            <p class="mb-4">Dit is mijn gamejam game die ik met een paar andere klasgenoten heb gemaakt.</p>
-                            <style>
-                                .player-container {
-                                    max-width: 600px;
-                                    margin: auto;
-                                    padding: 20px;
-                                    background: #f8f9fa;
-                                    border-radius: 10px;
-                                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-                                }
-                                video {
-                                    width: 100%;
-                                    border-radius: 8px;
-                                }
-                            </style>
-                            <body>
-
-                                <div class="player-container" id="playerContainer">
-                                    <video id="video" src="assets/img/portfolio/gigilsdeath.mp4"></video>
-                                    
-                                    <div class="controls mt-2">
-                                        <button id="playPauseBtn" class="btn btn-primary">Play</button>
-                                        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
-                                        <button id="fullscreenBtn" class="btn btn-secondary">Fullscreen</button>
-                                    </div>
-                                    
-                                    <input type="range" id="seekBar" class="form-range mt-2" min="0" value="0">
-                                    
-                                    <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <label for="volumeControl">Volume:</label>
-                                        <input type="range" id="volumeControl" class="form-range w-50" min="0" max="1" step="0.1" value="1">
-                                    </div>
-                                </div>
-                                
-                                <script>
-                                    const video = document.getElementById('video');
-                                    const playPauseBtn = document.getElementById('playPauseBtn');
-                                    const seekBar = document.getElementById('seekBar');
-                                    const currentTimeEl = document.getElementById('currentTime');
-                                    const durationEl = document.getElementById('duration');
-                                    const volumeControl = document.getElementById('volumeControl');
-                                    const fullscreenBtn = document.getElementById('fullscreenBtn');
-                                    const playerContainer = document.getElementById('playerContainer');
-                                
-                                    playPauseBtn.addEventListener('click', () => {
-                                        if (video.paused) {
-                                            video.play();
-                                            playPauseBtn.textContent = 'Pause';
-                                        } else {
-                                            video.pause();
-                                            playPauseBtn.textContent = 'Play';
-                                        }
-                                    });
-                                
-                                    video.addEventListener('timeupdate', () => {
-                                        seekBar.value = (video.currentTime / video.duration) * 100;
-                                        currentTimeEl.textContent = formatTime(video.currentTime);
-                                    });
-                                
-                                    video.addEventListener('loadedmetadata', () => {
-                                        durationEl.textContent = formatTime(video.duration);
-                                    });
-                                
-                                    seekBar.addEventListener('input', () => {
-                                        video.currentTime = (seekBar.value / 100) * video.duration;
-                                    });
-                                
-                                    volumeControl.addEventListener('input', () => {
-                                        video.volume = volumeControl.value;
-                                    });
-                                
-                                    fullscreenBtn.addEventListener('click', () => {
-                                        if (!document.fullscreenElement) {
-                                            if (playerContainer.requestFullscreen) {
-                                                playerContainer.requestFullscreen();
-                                            } else if (playerContainer.mozRequestFullScreen) { // Firefox
-                                                playerContainer.mozRequestFullScreen();
-                                            } else if (playerContainer.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                                                playerContainer.webkitRequestFullscreen();
-                                            } else if (playerContainer.msRequestFullscreen) { // IE/Edge
-                                                playerContainer.msRequestFullscreen();
-                                            }
-                                        } else {
-                                            if (document.exitFullscreen) {
-                                                document.exitFullscreen();
-                                            }
-                                        }
-                                    });
-                                
-                                    function formatTime(time) {
-                                        let minutes = Math.floor(time / 60);
-                                        let seconds = Math.floor(time % 60);
-                                        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                                    }
-                                </script>
-                                
-                                </body>
-
-                           
-
-<!-- Styles -->
-<style>
-    .photo-reel-container {
-        overflow-x: auto;
-        white-space: nowrap;
-        scroll-behavior: smooth;
-        display: flex;
-        gap: 10px;
-        padding: 10px;
-    }
-    .photo-reel-container img {
-        height: 200px;
-        border-radius: 10px;
-    }
-    .scroll-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 10;
-    }
-    .scroll-left {
-        left: 10px;
-    }
-    .scroll-right {
-        right: 10px;
-    }
-</style>
-
-<!-- JavaScript -->
-<script>
-    function scrollReel(amount) {
-        document.getElementById('photoReel').scrollLeft += amount;
-    }
-</script>
-                       
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/Ghost.png" alt="..." />
-                                    <img src="assets/img/portfolio/Ghostgame.png" alt="Screenshot 1" class="img-fluid rounded">
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4"></p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
 </html>
