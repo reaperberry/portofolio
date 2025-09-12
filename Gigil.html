@@ -36,15 +36,9 @@
       width: 100%;
       border-radius: 10px;
     }
-    .code-block {
-      margin-bottom: 1.5rem;
-    }
     .accordion-button {
       background-color: #3a3a4d;
       color: #fff;
-    }
-    .accordion-button:focus {
-      box-shadow: none;
     }
     .accordion-body {
       background-color: #2c2c3e;
@@ -56,14 +50,25 @@
       border-radius: 6px;
       overflow-x: auto;
     }
+    /* BTS Section */
+    .bts-section {
+      margin-top: 3rem;
+      background-color: #2c2c3e;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .bts-section h2 {
+      margin-bottom: 1rem;
+    }
+    .bts-section p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
- <nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Back to Main Page</a>
-    </div>
-  </nav>
+
   <div class="container">
     <!-- Header -->
     <div class="project-header">
@@ -89,263 +94,71 @@
     <div class="accordion" id="codeAccordion">
 
       <!-- Gun Firing Logic -->
-      <div class="accordion-item code-block">
+      <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#codeOne">
-            turn mechanic
+            Vuurmechaniek Revolver
           </button>
         </h2>
         <div id="codeOne" class="accordion-collapse collapse" data-bs-parent="#codeAccordion">
           <div class="accordion-body">
-            <pre><code>using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
-public abstract class Entity : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+            <pre><code>public void PullTrigger()
 {
-    [SerializeField] protected Animator animator;
-    [SerializeField] protected EntityType entityType;
-    [SerializeField] private int Health;
-    [SerializeField] private HealthUI healthDisplay;
-    [SerializeField] private SpeechBubble speechBubble;
-    public EntityType EntityType => entityType;
-    public Animator Animator => animator;
-    public bool hasPicked = false;
-    public bool canShoot = false;
-
-
-    public void Update()
+    if (chamber[currentChamber] == true)
     {
+        player.Die();
+        PlaySound("bang");
     }
-    protected void Awake()
+    else
     {
-        animator = GetComponent<Animator>();
-        animator.Rebind();
-        UpdateHealthDisplay();
-        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-    }
-    
-    public void Shoot(EntityType entityType)
-    {
-        hasPicked = true;
-        Entity target = GameManager.Instance.GetEntity(entityType);
-        if (target != null)
-        {
-            target.animator.SetTrigger("Pressed");
-            if (entityType == this.entityType) target.animator.SetBool("Is Self", true);
-            else animator.SetTrigger("Aim At Target");
-            ShouldTalk();
-        }
-    }
-    
-    public void HitTarget(EntityType entityType)
-    {
-        if (animator.GetBool("Is Self") && animator.GetBool("Pressed"))
-        {
-            HitAnimation(this.entityType);
-        }
-        else if (GameManager.Instance.GetEntity(entityType).animator.GetCurrentAnimatorStateInfo(0).IsName("Pressed"))
-        {
-            HitAnimation(entityType);
-        }
-    }
-    
-    public void HitAnimation(EntityType entityType)
-    {
-        Entity target = GameManager.Instance.GetEntity(entityType);
-        if (target != null)
-        {
-            bool isBullet = GameManager.Instance.Shoot();
-            if (isBullet)
-            {
-                target.animator.SetTrigger("Hit");
-            }
-            else
-            {
-                GameManager.Instance.keepTurn = target.animator.GetBool("Is Self");
-                AudioManager.Instance.PlaySoundOnce(AudioManager.Sound.DryFire); 
-                Reset();
-            }
-        }
+        PlaySound("click");
     }
 
-    public void Reset()
-    {
-        GameManager.Instance.ResetAllEntities();
-        GameManager.Instance.StartTurn();
-    }
-
-
-    public bool Die()
-    {
-        Health--;
-        UpdateHealthDisplay();
-        if (Health == 0)
-        {
-            GameManager.Instance.EndRound(this.entityType);
-            return true;
-        }
-
-        return false;
-    }
-    
-    public void Heal(int amount)
-    {
-        Health += amount;
-        UpdateHealthDisplay();
-    }
-
-    private void UpdateHealthDisplay()
-    {
-        if (healthDisplay != null)
-        {
-            healthDisplay.UpdateHealth(Health);
-        }
-    }
-
-    public void ShouldTalk()
-    {
-        if (UnityEngine.Random.Range(0, 10) == 0)
-        {
-            animator.SetBool("Talking", true);
-        }
-    }
-    
-    public void StopTalking()
-    {
-        animator.SetBool("Talking", false);
-    }
-    
-    public void Talk(TriggerType trigger)
-    {
-        speechBubble.RandomSpeech(trigger);
-    }
-    
-    public void ShotSound()
-    {
-        AudioManager.Instance.PlaySoundOnce(AudioManager.Sound.Fire);
-    }
-    
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked && GameManager.Instance.GetEntity(EntityType.Player).canShoot)
-        {
-            GameManager.Instance.GetEntity(EntityType.Player).Shoot(entityType);
-            EventManager.TriggerEvent("HideInventory", new Dictionary<string, object>());
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked)
-        {
-            animator.SetTrigger("Highlighted");
-            if (entityType == GameManager.Instance.CurrentTurn && entityType == EntityType.Player)
-            {
-                animator.SetBool("Is Self", true);
-            }
-            else
-            {
-                GameManager.Instance.GetEntity(entityType == EntityType.Enemy ? EntityType.Player : EntityType.Enemy).animator.SetTrigger("Aim At Target");
-            }
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (GameManager.Instance.CurrentTurn == EntityType.Player && !GameManager.Instance.GetEntity(EntityType.Player).hasPicked)
-        {
-            animator.SetTrigger("Normal");
-            if (entityType == GameManager.Instance.CurrentTurn && entityType == EntityType.Player)
-            {
-                animator.SetBool("Is Self", false);
-            }
-            else
-            {
-                GameManager.Instance.GetEntity(entityType == EntityType.Enemy ? EntityType.Player : EntityType.Enemy).animator.SetTrigger("Normal");
-            }
-            animator.SetBool("Talking", false);
-        }
-    }
-}
-
-public enum EntityType
-{
-    Player,
-    Enemy
-}
-</code></pre>
-          </div>
-        </div>
-      </div>
-
-      <!-- UI Shake Feedback -->
-      <div class="accordion-item code-block">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#codeTwo">
-            Enemy logica
-          </button>
-        </h2>
-        <div id="codeTwo" class="accordion-collapse collapse" data-bs-parent="#codeAccordion">
-          <div class="accordion-body">
-            <pre><code>using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
-public class EnemyBrain : Entity
-{
-    public static EnemyBrain Instance { get; private set; }
-    private Coroutine thinkCoroutine;
-    
-    private void Awake()
-    {
-        Instance = this;
-        base.Awake();
-    }
-
-    public void Think()
-    {
-        if (thinkCoroutine == null)
-        {
-            thinkCoroutine = StartCoroutine(ThinkCoroutine());
-        }
-    }
-
-    public void StopThinking()
-    {
-        if (thinkCoroutine != null)
-        {
-            StopCoroutine(thinkCoroutine);
-            thinkCoroutine = null;
-        }
-    }
-    
-    private IEnumerator ThinkCoroutine()
-    {
-        yield return new WaitForSeconds(1f);
-        int random = Random.Range(0, 2);
-        Debug.Log(random);
-        if (random == 0)
-        {
-            Shoot(EntityType.Player);
-        }
-        else
-        {
-            Shoot(EntityType.Enemy);
-        }
-        thinkCoroutine = null;
-    }
+    currentChamber = (currentChamber + 1) % 6;
 }</code></pre>
           </div>
         </div>
       </div>
 
+      <!-- UI Shake Feedback -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#codeTwo">
+            UI Shake bij Spanning
+          </button>
+        </h2>
+        <div id="codeTwo" class="accordion-collapse collapse" data-bs-parent="#codeAccordion">
+          <div class="accordion-body">
+            <pre><code>IEnumerator ShakeUI()
+{
+    Vector3 originalPos = uiElement.localPosition;
+    float elapsed = 0f;
+
+    while (elapsed &lt; duration)
+    {
+        float x = Random.Range(-1f, 1f) * intensity;
+        float y = Random.Range(-1f, 1f) * intensity;
+
+        uiElement.localPosition = new Vector3(x, y, originalPos.z);
+        elapsed += Time.deltaTime;
+
+        yield return null;
+    }
+
+    uiElement.localPosition = originalPos;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BTS Section (Text Only) -->
+    <div class="bts-section">
+      <h2>Behind The Scenes</h2>
+      <p>wij hebben veel problemen gehad met de turn system omdat de tegenstander nooit zijn turn kreeg.
+      We hebben dit opgelost door een coroutine te gebruiken die de beurt van de tegenstander na een korte vertraging activeert.
+      Ook hadden we problemen met de UI die niet goed schudde bij spanning, dit hebben we opgelost door een aparte functie te maken die de UI element tijdelijk verplaatst.
+      </p>
     </div>
 
     <!-- Play Now Button -->

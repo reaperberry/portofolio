@@ -11,7 +11,8 @@
 
     <style>
         body {
-            background-color: #0f0f0f;
+                  background-color: #2c3e50;
+
             color: #e0e0e0;
         }
         .code-block {
@@ -73,7 +74,8 @@
             border-color: #ff3366;
         }
         footer {
-            background-color: #111;
+                 background-color: #2c3e50;
+
             color: #aaa;
             padding: 40px 0;
         }
@@ -98,8 +100,8 @@
         <!-- Section 1 -->
         <h2 class="section-title">🧪 Cauldron Mixing Logic</h2>
         <p class="code-description">
-            Dit hele code is ervoor om de ingrediënten die de speler in de cauldron heeft opgeslagen te combineren om een potion eruit te krijgen.
-            Met reacties erop als je de verkeerde combo doet of de juiste combo.
+            Deze hele code is ervoor om de ingrediënten die de speler in de cauldron heeft opgeslagen te combineren om er een potion uit te krijgen.  
+            Met reacties afhankelijk van of je de verkeerde of de juiste combo maakt.
         </p>
         <div class="code-gif-pair">
             <div class="col-md-6">
@@ -109,7 +111,212 @@
                 <button class="btn btn-sm btn-outline-info toggle-btn" onclick="toggleCode('code1')">Show Code</button>
                 <div id="code1" style="display: none;">
                     <div class="code-block mt-2">
-                        <pre><code>... (code)</code></pre>
+                        <pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Couldron : MonoBehaviour
+{
+    [System.Serializable]
+    public class Recipe
+    {
+        public string ingredientTag1;
+        public string ingredientTag2;
+        public GameObject outputPrefab;
+        public ParticleSystem effectPrefab;
+        public AudioClip mixSound;
+        public GameObject ingredientPrefab1;
+        public GameObject ingredientPrefab2;
+        public Transform respawnPoint1;
+        public Transform respawnPoint2;
+        public float respawnDelay = 1f;
+        
+    }
+    [SerializeField] private GameObject Chicken;
+    [SerializeField] private Transform spawnPointchimken;
+    [SerializeField] private GameObject explosionEffect;
+
+    public List<Recipe> recipes = new List<Recipe>();
+    public List<string> allowedIngredientTags = new List<string>();
+    public Transform spawnPoint;
+    public AudioSource audioSource;
+
+    private GameObject storedIngredient1;
+    private GameObject storedIngredient2;
+    private string storedTag1 = "";
+    private string storedTag2 = "";
+    private bool waitingForStir = false;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("StirStick"))
+        {
+            if (waitingForStir)
+            {
+                CombineStoredIngredients();
+            }
+            return;
+        }
+
+        if (!allowedIngredientTags.Contains(other.tag)) return;
+
+        if (storedIngredient1 == null)
+        {
+            storedIngredient1 = other.gameObject;
+            storedTag1 = other.tag;
+            other.gameObject.SetActive(false);
+        }
+        else if (storedIngredient2 == null && other.gameObject != storedIngredient1)
+        {
+            storedIngredient2 = other.gameObject;
+            storedTag2 = other.tag;
+            other.gameObject.SetActive(false);
+
+            if (!CheckForValidRecipe())
+            {
+                LaunchInvalidIngredient(storedIngredient1);
+                LaunchInvalidIngredient(storedIngredient2);
+                ClearStoredIngredients();
+            }
+            else
+            {
+                waitingForStir = true;
+            }
+        }
+    }
+
+    private bool CheckForValidRecipe()
+    {
+        foreach (var recipe in recipes)
+        {
+            bool matches =
+                (storedTag1 == recipe.ingredientTag1 && storedTag2 == recipe.ingredientTag2) ||
+                (storedTag1 == recipe.ingredientTag2 && storedTag2 == recipe.ingredientTag1);
+
+            if (matches)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void CombineStoredIngredients()
+    {
+        waitingForStir = false;
+
+        foreach (var recipe in recipes)
+        {
+            bool matches =
+                (storedTag1 == recipe.ingredientTag1 && storedTag2 == recipe.ingredientTag2) ||
+                (storedTag1 == recipe.ingredientTag2 && storedTag2 == recipe.ingredientTag1);
+
+            if (matches)
+            {
+                Destroy(storedIngredient1);
+                Destroy(storedIngredient2);
+                ClearStoredIngredients();
+
+                StartCoroutine(SpawnAfterDelay(recipe.outputPrefab, spawnPoint.position, 2.5f));
+
+                if (recipe.effectPrefab != null)
+                {
+                    Quaternion upwardRotation = Quaternion.LookRotation(Vector3.up);
+                    ParticleSystem vfx = Instantiate(recipe.effectPrefab, spawnPoint.position, upwardRotation);
+                    vfx.Play();
+                    Destroy(vfx.gameObject, vfx.main.duration);
+                }
+
+                if (recipe.mixSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(recipe.mixSound);
+                }
+
+                if (recipe.ingredientPrefab1 != null && recipe.respawnPoint1 != null)
+                {
+                    StartCoroutine(RespawnIngredient(recipe.ingredientPrefab1, recipe.respawnPoint1.position, recipe.respawnDelay));
+                }
+                if (recipe.ingredientPrefab2 != null && recipe.respawnPoint2 != null)
+                {
+                    StartCoroutine(RespawnIngredient(recipe.ingredientPrefab2, recipe.respawnPoint2.position, recipe.respawnDelay));
+                }
+
+                break;
+            }
+        }
+    }
+
+    private void LaunchInvalidIngredient(GameObject ingredient, bool allowSpawn = true)
+    {
+        if (ingredient != null)
+        {
+            if (explosionEffect != null)
+            {
+                GameObject explosion = Instantiate(explosionEffect, ingredient.transform.position, Quaternion.identity);
+                Destroy(explosion, 3f); // Adjust this duration to match your explosion's lifetime
+            }
+
+            ingredient.SetActive(true);
+
+            if (ingredient.TryGetComponent<Collider>(out Collider col))
+                col.enabled = false;
+
+            if (ingredient.TryGetComponent<Rigidbody>(out Rigidbody rb))
+            {
+                rb.isKinematic = false;
+                rb.AddForce(Vector3.up * 5f + Random.insideUnitSphere * 2f, ForceMode.Impulse);
+            }
+
+            StartCoroutine(ReenableColliderAfterDelay(ingredient, 1f));
+
+            if (allowSpawn)
+            {
+                GameObject spawned = Instantiate(Chicken, spawnPointchimken.position, spawnPointchimken.rotation);
+                LaunchInvalidIngredient(spawned, false); // prevent recursion
+            }
+        }
+    }
+
+    private IEnumerator ReenableColliderAfterDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (obj != null && obj.TryGetComponent<Collider>(out Collider col))
+        {
+            col.enabled = true;
+        }
+    }
+
+    private IEnumerator RespawnIngredient(GameObject prefab, Vector3 position, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Instantiate(prefab, position, Quaternion.identity);
+    }
+
+    private IEnumerator SpawnAfterDelay(GameObject prefab, Vector3 position, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Instantiate(prefab, position, Quaternion.identity);
+    }
+
+    private void ClearStoredIngredients()
+    {
+        storedIngredient1 = null;
+        storedIngredient2 = null;
+        storedTag1 = "";
+        storedTag2 = "";
+        waitingForStir = false;
+    }
+
+  
+    public void ResetCauldron()
+    {
+        if (storedIngredient1 != null) LaunchInvalidIngredient(storedIngredient1);
+        if (storedIngredient2 != null) LaunchInvalidIngredient(storedIngredient2);
+        ClearStoredIngredients();
+    }
+}</code></pre>
                     </div>
                 </div>
             </div>
@@ -118,10 +325,10 @@
         <!-- Section 2 -->
         <h2 class="section-title">🎮 Distance grabbing</h2>
         <p class="code-description">
-            Een kleine game mechanic die ervoor zorgt dat je objecten kan oppakken van een afstand.
-            Omdat de Meta SDK niet helemaal werkte kon ik niet in de code gelijk zetten dat de distancegrab uit ging dus moest ik eromheen coderen.
-            Hoe ik het heb gedaan is dat als je met je hand in de trigger komt van de distancegrab dan gaat die aan en blijft die 5 seconden aan door de distancegrab te vinden en aan te zetten.
-            Na 5 seconden zoekt ie weer alle distancegrab objecten en zet die uit.
+            Een kleine game-mechanic die ervoor zorgt dat je objecten van een afstand kunt oppakken.  
+            Omdat de Meta SDK niet helemaal werkte, kon ik in de code niet direct instellen dat de distance grab uitging, dus moest ik eromheen coderen.  
+            Hoe ik het heb gedaan: als je met je hand de trigger van de distance grab raakt, gaat deze aan en blijft hij 5 seconden actief door de distance grab te vinden en te activeren.  
+            Na 5 seconden zoekt hij opnieuw alle distance grab-objecten en zet deze uit.
         </p>
         <div class="code-gif-pair reverse">
             <div class="col-md-6">
@@ -131,11 +338,102 @@
                 <button class="btn btn-sm btn-outline-info toggle-btn" onclick="toggleCode('code2')">Show Code</button>
                 <div id="code2" style="display: none;">
                     <div class="code-block mt-2">
-                        <pre><code>... (code)</code></pre>
+                    <pre><code>public class DistanceGrabManager : MonoBehaviour
+{
+    public float activeDuration = 5f; // Duration in seconds to keep DistanceGrab active
+    public GameObject handEffectPrefab; // Assign this in the Inspector
+
+    private Coroutine deactivateCoroutine;
+    private List<GameObject> activeHandEffects = new List<GameObject>();
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hand"))
+        {
+            ActivateDistanceGrab(other.gameObject);
+        }
+    }
+
+    void ActivateDistanceGrab(GameObject hand)
+    {
+        foreach (GameObject obj in GetAllDistanceGrabObjects())
+        {
+            obj.SetActive(true);
+        }
+
+        AddEffectToHand(hand);
+
+        if (deactivateCoroutine != null)
+        {
+            StopCoroutine(deactivateCoroutine);
+        }
+
+        deactivateCoroutine = StartCoroutine(DeactivateAfterTime());
+    }
+
+    IEnumerator DeactivateAfterTime()
+    {
+        yield return new WaitForSeconds(activeDuration);
+
+        foreach (GameObject obj in GetAllDistanceGrabObjects())
+        {
+            obj.SetActive(false);
+        }
+
+        RemoveAllHandEffects();
+
+        deactivateCoroutine = null;
+    }
+
+    GameObject[] GetAllDistanceGrabObjects()
+    {
+        return System.Array.FindAll(Resources.FindObjectsOfTypeAll<GameObject>(), obj =>
+            obj.name == "DistanceGrab" &&
+            obj.scene.IsValid() &&
+            obj.hideFlags == HideFlags.None
+        );
+    }
+
+    void AddEffectToHand(GameObject hand)
+    {
+        if (handEffectPrefab == null) return;
+
+        GameObject effect = Instantiate(handEffectPrefab, hand.transform);
+        effect.transform.localPosition = Vector3.zero; 
+        activeHandEffects.Add(effect);
+    }
+
+    void RemoveAllHandEffects()
+    {
+        foreach (GameObject effect in activeHandEffects)
+        {
+            if (effect != null)
+            {
+                Destroy(effect);
+            }
+        }
+        activeHandEffects.Clear();
+    }
+</code></pre>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- BTS Section -->
+<h2 class="section-title">🎬 Behind the Scenes</h2>
+<p class="code-description">
+    Voor Alcemix hebben we in een klein team van drie personen gewerkt.  
+    Het project duurde 8 weken en het doel was om een Vr-game speelbaar op itch.io te krijgen.  
+    Tijdens het proces hebben we:
+</p>
+<ul class="code-description">
+    wij hadden problemem met de sdk voor deze project, want de sdk duplikeerde zichzelf waardoor we geen builds konden maken.
+    we moesten erom heen werken door de sdk te verwijderen en weer opnieuw te importeren.
+    wij hadden ook problemen met de distance grab want die werkte niet zoals we wilde.
+    we hebben dit opgelost door een script te maken die de distance grab aan en uit zette.
+</ul>
+</p>
 
         <!-- Footer -->
         <footer class="text-center mt-5">
@@ -154,5 +452,7 @@
             btn.textContent = isVisible ? "Show Code" : "Hide Code";
         }
     </script>
+
+    
 </body>
 </html>

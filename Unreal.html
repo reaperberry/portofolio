@@ -10,7 +10,8 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0d0d0d, #1f1f1f);
+            background-color: #2c3e50;
+
       color: #eee;
     }
 
@@ -79,61 +80,126 @@
   </nav>
 
   <div class="container py-4">
-    <h1 class="text-center mb-4">🎮 Unreal Experiences</h1>
-    <p class="text-center mb-5">Alle projecten waar ik aan mee heb geholpen</p>
+    <h1 class="text-center mb-4">🎮 Unreal Experience</h1>
+    <p class="text-center mb-5">hier is mijn unreal project</p>
 
-    <!-- Lost Mother -->
-    <div class="section">
-      <h2 class="section-title">🔹 Lost Mother</h2>
-      <div class="media-pair">
-        <div class="col-md-6">
-          <video controls>
-            <source src="assets/img/portfolio/lostmom.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="col-md-6">
-          <p class="code-description">
-            Dit VR-experience waar ik aan mee heb gewerkt heet <b>Lost Mother</b>.
-          </p>
-        </div>
-      </div>
-      <h3 class="subheader">🔧 Behind the Scenes</h3>
+   <!-- Lost Mother -->
+<div class="section">
+  <h2 class="section-title">🔹 Lost Mother</h2>
+  <div class="media-pair">
+    <div class="col-md-6">
+      <video controls>
+        <source src="assets/img/portfolio/lostmom.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6">
       <p class="code-description">
-       Een grote technishe uitdaging voor dit ervaring was de enorme lag dat we kregen tijdens het testen in vr.
-        Dit kwam omdat we een heleboel assets in de scene hadden die niet geoptimaliseerd waren voor VR.
-        Door dit op te lossen hadden we heel veel assets dat enorm zwaar waren eruit gehaalt, in blender gegooid en geoptimaliseerd.
-        De assets dat niet geoptimaliseerd konden worden in die manier hadden we eruit gehaalt en vervangen door simpelere versies.
-        Dit zorgde ervoor dat de ervaring soepel bleef lopen in VR.
-        En met een beetje rond spelen met de blueprints konden we het belangrijkste stuk van de ervaring behouden.
+        Dit VR-experience waar ik aan mee heb gewerkt heet <b>Lost Mother</b>.
       </p>
     </div>
+  </div>
 
-    <!-- Anxious Party -->
-    <div class="section">
-      <h2 class="section-title">🔹 Anxious Party</h2>
-      <div class="media-pair reverse">
-        <div class="col-md-6">
-          <video controls>
-            <source src="assets/img/portfolio/anxious party.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="col-md-6">
-          <p class="code-description">
-            Dit project heet <b>Anxious Party</b>, waarbij je een persoon speelt met social anxiety
-            en probeert dit te overkomen tijdens een feestje.
-          </p>
-        </div>
-      </div>
-      <h3 class="subheader">🔧 Behind the Scenes</h3>
-      <p class="code-description">
-        Met Anxious Party moesten we heel erg nadenken hoe we zoveel mensen in de scene konden hebben zonder dat het te zwaar werd voor VR.
-        we merkten dat als teveel mensen motion captured animaties hadden, dat het te zwaar werd voor VR.
-        Dus hebben we alleen de mensen die belangrijg waren voor de ervaring motion captured animaties gegeven, en de rest simpele loop cycles.
-        Dit zorgde ervoor dat de ervaring soepel bleef lopen.
-      </p>
-    </div>
+  <h3 class="subheader">🔧 Behind the Scenes</h3>
+  <p class="code-description">
+    Een grote technische uitdaging voor deze ervaring was de enorme lag dat we kregen tijdens het testen in VR.
+    Dit kwam omdat we een heleboel assets in de scene hadden die niet geoptimaliseerd waren voor VR.
+    Door dit op te lossen hebben we zware assets eruit gehaald, in Blender gegooid en geoptimaliseerd.
+    De assets die niet geoptimaliseerd konden worden, hebben we vervangen door simpelere versies.
+    Dit zorgde ervoor dat de ervaring soepel bleef lopen in VR.
+    En met een beetje spelen met de blueprints konden we het belangrijkste stuk van de ervaring behouden.
+  </p>
+
+ <!-- 📷 Foto's direct onder Lost Mother -->
+<div class="row g-3 mt-3">
+  <div class="col-md-4">
+    <img src="assets/img/portfolio/moederblueprint.png" alt="Lost Mother Foto 1" 
+         class="img-fluid rounded shadow zoomable">
+  </div>
+  <div class="col-md-4">
+    <img src="assets/img/portfolio/blueprint2.png" alt="Lost Mother Foto 2" 
+         class="img-fluid rounded shadow zoomable">
+  </div>
+  <div class="col-md-4">
+    <img src="assets/img/portfolio/blueprint3.png" alt="Lost Mother Foto 3" 
+         class="img-fluid rounded shadow zoomable">
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<style>
+  /* Lightbox achtergrond */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+  }
+
+  /* Ingezoomde foto */
+  .lightbox-content {
+    display: block;
+    margin: auto;
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+  }
+
+  /* Sluitknop */
+  .close {
+    position: absolute;
+    top: 20px; right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .zoomable {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .zoomable:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+  // Lightbox elements
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.querySelector(".lightbox .close");
+
+  // Alle zoomable images
+  document.querySelectorAll(".zoomable").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "block";
+      lightboxImg.src = img.src;
+    });
+  });
+
+  // Sluit lightbox bij klik op X
+  closeBtn.onclick = () => {
+    lightbox.style.display = "none";
+  };
+
+  // Sluit bij klik buiten de foto
+  lightbox.onclick = (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+    }
+  };
+</script>
+    
 
     <footer>
       <p>© 2025 Youri Wallaart | XR Developer</p>

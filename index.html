@@ -39,8 +39,8 @@
       position: relative;
     }
     .hero img {
-  width: 220px;
-  height: 220px;
+  width: 800px;
+  height: 400px;
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(255,255,255,0.3);
@@ -125,20 +125,31 @@
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero" id="home">
+<!-- Hero / About Me -->
+<section class="hero d-flex align-items-center" id="home">
   <div id="particles-js"></div>
-  <img src="assets/img/portfolio/mooie.JPG" alt="Youri Wallaart" />
-  <h1>Youri Wallaart</h1>
-  <p>Game Developer gespecialiseerd in XR, VR en interactieve ervaringen. Ontdek hieronder mijn projecten!</p>
-  <a href="#projects" class="btn btn-primary mt-2">Bekijk Projecten</a>
-</section>
-
-<!-- About -->
-<section id="about" class="container">
-  <h2 class="section-title">Over Mij</h2>
-  <p>Hallo, ik ben Youri Wallaart, een 19-jarige student XR-ontwikkeling aan het Grafisch Lyceum Utrecht. Ik ben gepassioneerd door het creëren van meeslepende ervaringen en het werken met geavanceerde technologie.</p>
-  <p>Mijn projecten variëren van interactieve games tot innovatieve simulaties, allemaal met focus op gebruikerservaring en betrokkenheid.</p>
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Foto -->
+      <div class="col-md-5 text-center mb-4 mb-md-0">
+        <img src="assets/img/portfolio/mooie.JPG" alt="Youri Wallaart" 
+             class="img-fluid rounded-circle shadow" 
+             style="max-width: 340px; border: 6px solid #0d6efd;">
+      </div>
+      <!-- Tekst -->
+      <div class="col-md-7 d-flex flex-column justify-content-center text-md-start text-center">
+        <h1 class="fw-bold display-4">Youri Wallaart</h1>
+        <p class="lead">
+          19-jarige student XR-ontwikkeling aan het Grafisch Lyceum Utrecht.  
+          Ik ben gepassioneerd door het creëren van meeslepende ervaringen en het werken met geavanceerde technologie.
+        </p>
+        <p>
+          Mijn projecten variëren van interactieve games tot innovatieve simulaties, altijd met focus op gebruikerservaring en betrokkenheid.
+        </p>
+        <a href="#projects" class="btn btn-primary mt-3 align-self-md-start mx-auto mx-md-0">Bekijk Projecten</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Vaardigheden -->
@@ -167,59 +178,107 @@
 <section id="projects" class="container">
   <h2 class="section-title">Projecten</h2>
 
-  <!-- VR Games -->
-  <h3 class="text-info mt-5">VR Games</h3>
-  <div class="project-highlight">
-    <img src="assets/img/portfolio/logo.png" alt="Alcemix" />
-    <div class="project-info">
-      <h4>Alcemix (VR Game)</h4>
-      <p>Een meeslepende VR-game gericht op alchemie-mechanieken. Gebouwd met Unity en VR Toolkit.</p>
-      <a href="Alcemix.html" class="btn btn-primary">Bekijk project</a>
-    </div>
-  </div>
-  <div class="project-highlight">
-    <img src="assets/img/portfolio/Ghost.png" alt="Ghost Game" />
-    <div class="project-info">
-      <h4>Ghost (VR Game)</h4>
-      <p>Een stealth-horror VR ervaring met vijandige AI en intense geluidseffecten.</p>
-      <a href="ghost.html" class="btn btn-primary">Bekijk project</a>
-    </div>
+  <!-- Filter knoppen -->
+  <div class="text-center mb-4">
+    <button class="btn btn-outline-primary filter-btn active" data-filter="all">Alle</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="vr">VR Games</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="3d">3D Games</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="unreal">Unreal Games</button>
   </div>
 
-  <!-- 3D Games -->
-  <h3 class="text-info mt-5">3D Games</h3>
-  <div class="project-highlight">
-    <img src="assets/img/portfolio/T_title.png" alt="NightRacer" />
-    <div class="project-info">
-      <h4>NightRacer (3D Game)</h4>
-      <p>Een local splitscreen multiplayer racing game.</p>
-      <a href="NightRacer.html" class="btn btn-primary">Bekijk project</a>
+  <!-- Projecten Grid -->
+  <div class="row g-4">
+
+    <!-- VR Game -->
+    <div class="col-md-6 col-lg-4 project-card" data-category="vr">
+      <div class="card bg-dark text-light h-100 shadow">
+        <img src="assets/img/portfolio/logo.png" class="card-img-top" alt="Alcemix">
+        <div class="card-body">
+          <h5 class="card-title">Alcemix (VR Game)</h5>
+          <p class="card-text">Een meeslepende VR-game gericht op alchemie-mechanics. Gebouwd met Unity en VR Toolkit.</p>
+          <a href="Alcemix.html" class="btn btn-primary">Bekijk project</a>
+        </div>
+      </div>
     </div>
+
+    <!-- VR Game -->
+    <div class="col-md-6 col-lg-4 project-card" data-category="vr">
+      <div class="card bg-dark text-light h-100 shadow">
+        <img src="assets/img/portfolio/Ghost.png" class="card-img-top" alt="Ghost Game">
+        <div class="card-body">
+          <h5 class="card-title">Ghost (VR Game)</h5>
+          <p class="card-text">Een stealth-horror VR ervaring met vijandige AI en intense geluidseffecten.</p>
+          <a href="ghost.html" class="btn btn-primary">Bekijk project</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Game -->
+    <div class="col-md-6 col-lg-4 project-card" data-category="3d">
+      <div class="card bg-dark text-light h-100 shadow">
+        <img src="assets/img/portfolio/T_title.png" class="card-img-top" alt="NightRacer">
+        <div class="card-body">
+          <h5 class="card-title">NightRacer (3D Game)</h5>
+          <p class="card-text">Een local splitscreen multiplayer racing game.</p>
+          <a href="NightRacer.html" class="btn btn-primary">Bekijk project</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Unreal Game -->
+    <div class="col-md-6 col-lg-4 project-card" data-category="unreal">
+      <div class="card bg-dark text-light h-100 shadow">
+        <img src="assets/img/portfolio/unreal.png" class="card-img-top" alt="Unreal Project">
+        <div class="card-body">
+          <h5 class="card-title">Unreal Project</h5>
+          <p class="card-text">Een project ontwikkeld met Unreal Engine met gebruik van Blueprint systemen.</p>
+          <a href="Unreal.html" class="btn btn-primary">Bekijk project</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Filter Script -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Active knop highlighten
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const filter = button.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<!-- Projects -->
+<section id="projects" class="container mt-5">
+  <h2 class="section-title">Projecten</h2>
+
+  <!-- Filter knoppen -->
+  <div class="text-center mb-4">
+    <button class="btn btn-outline-primary filter-btn active" data-filter="all">Alle</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="vr">VR Games</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="3d">3D Games</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="unreal">Unreal Games</button>
   </div>
 
-  <!-- Unreal Games -->
-  <h3 class="text-info mt-5">Unreal Games</h3>
-  <div class="project-highlight">
-    <img src="assets/img/portfolio/unreal.png" alt="Unreal Project" />
-    <div class="project-info">
-      <h4>Unreal Project</h4>
-      <p>Een project ontwikkeld met Unreal Engine met gebruik van Blueprint systemen.</p>
-      <a href="Unreal.html" class="btn btn-primary">Bekijk project</a>
-    </div>
+  <div class="row g-4">
+    <!-- Project cards hier (zelfde als vorige snippet) -->
   </div>
-
-  <!-- 2D Games -->
-  <h3 class="text-info mt-5">2D Games</h3>
-  <div class="project-highlight">
-    <img src="assets/img/portfolio/Gigil.png" alt="Gigil" />
-    <div class="project-info">
-      <h4>Gigil's Russian Roulette (Game Jam)</h4>
-      <p>Donkere humor game gemaakt tijdens een game jam met klasgenoten.</p>
-      <a href="Gigil.html" class="btn btn-primary">Bekijk project</a>
-    </div>
-  </div>
-
-
 </section>
 
 <!-- Mini Game -->
@@ -227,7 +286,7 @@
   <h2 class="section-title">Speel Mijn Mini Game</h2>
   <p class="text-center">Gebruik de muis om het paddle links te bewegen</p>
   <p id="scoreBoard" class="text-center fw-bold">Speler: 0 | AI: 0</p>
-  <canvas id="gameCanvas" width="800" height="500"></canvas>
+  <canvas id="gameCanvas" width="800" height="500" class="d-block mx-auto"></canvas>
   <div class="text-center mt-3">
     <label for="difficultySlider">Moeilijkheid:</label>
     <input type="range" id="difficultySlider" min="1" max="10" value="5">
@@ -235,29 +294,8 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer id="contact">
-  <p>© 2025 Youri Wallaart. Alle rechten voorbehouden.</p>
-  <div>
-    <a href="#"><i class="fab fa-github"></i></a>
-    <a href="#"><i class="fab fa-linkedin"></i></a>
-    <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
-  </div>
-</footer>
-
-<!-- Scripts -->
+<!-- Mini Game Script -->
 <script>
-  tsParticles.load("particles-js", {
-    fullScreen: { enable: false },
-    particles: {
-      number: { value: 80 },
-      size: { value: 3 },
-      move: { enable: true, speed: 1 },
-      links: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4 }
-    },
-    background: { color: "#0a3d62" }
-  });
-
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
   let playerY = canvas.height / 2 - 40;
@@ -339,5 +377,3 @@
 
   gameLoop();
 </script>
-</body>
-</html>
